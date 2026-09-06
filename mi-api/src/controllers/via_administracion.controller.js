@@ -1,10 +1,10 @@
 let via_administracion = [
    {id: 1,
-    nombre: 'Capsula',
+    nombre: 'intravenoso',
     descripcion: '21322'},
 
    {id: 2,
-    nombre: 'Pastilla',
+    nombre: 'topico',
     descripcion: '32345'
     }
 ];
@@ -15,7 +15,7 @@ const getAll = (req, res) => {
 
 const getById = (req, res) => {
   const item = via_administracion.find(
-    u => u.id == req.params.id
+    v => v.id == req.params.id
   );
   if (!item) return res.status(404)
     .json({ ok: false, msg: 'No encontrado' });

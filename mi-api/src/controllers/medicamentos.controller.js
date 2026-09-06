@@ -15,7 +15,7 @@ const getAll = (req, res) => {
 
 const getById = (req, res) => {
   const item = medicamentos.find(
-    u => u.id == req.params.id
+    m => m.id == req.params.id
   );
   if (!item) return res.status(404)
     .json({ ok: false, msg: 'No encontrado' });
