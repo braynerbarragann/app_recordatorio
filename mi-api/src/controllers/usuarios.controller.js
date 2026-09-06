@@ -1,13 +1,27 @@
-let ususarios = [
-  { id: 1, nombre: 'Lap', telefono: '213213123' }
+let usuarios = [
+  { id: 1,
+    nombre: 'Lap', 
+    telefono: '213213123',
+    genero: 'Masculino',
+    correo: 'Lap@gmail.com',
+    edad: '45'
+     },
+
+  { id: 2,
+    nombre: 'Carlos',
+    telefono: '3124356622',
+    genero: 'Masculino',
+    correo: 'carlos@gmail.com',
+    edad: '68'
+  }      
 ];
 
 const getAll = (req, res) => {
-  res.json({ ok: true, data: ususarios });
+  res.json({ ok: true, data: usuarios });
 };
 
 const getById = (req, res) => {
-  const item = ususarios.find(
+  const item = usuarios.find(
     u => u.id == req.params.id
   );
   if (!item) return res.status(404)
@@ -17,7 +31,8 @@ const getById = (req, res) => {
 
 const create = (req, res) => {
   const nuevo = { id: Date.now(), ...req.body };
-  ususarios.push(nuevo);
+  usuarios.push(nuevo);
   res.status(201).json({ ok: true, data: nuevo });
 };
-module.exports = { getAll, getById, create };
+
+module.exports = { getAll, getById, create};

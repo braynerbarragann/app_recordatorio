@@ -5,7 +5,13 @@ const app = express();
 app.use(express.json());
 
 // Rutas
-const ususariosRouter = require('./routes/usuarios.routes');
-app.use('/api/usuarios', ususariosRouter);
+const usuariosRouter = require('./routes/usuarios.routes');
+app.use('/api/usuarios', usuariosRouter);
+
+const medicamentosRouter = require('./routes/medicamentos.routes');
+app.use('/api/medicamentos', medicamentosRouter);
+
+const via_administracionRouter = require('./routes/via_administracion.routes');
+app.use('/api/via_administracion', via_administracionRouter);
 
 module.exports = app;
