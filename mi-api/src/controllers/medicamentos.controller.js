@@ -1,12 +1,30 @@
 let medicamentos = [
-   {id: 1,
-    nombre: 'Acetaminofen',
-    descripcion: '21322'},
+   {
+    id: 1,
+    via_administracion_id: 1,
+    nombre: "Acetaminofén",
+    presentacion: "Tableta",
+    concentracion: "500 mg",
+    descripcion: "Analgésico y antipirético"
+  },
+   {
+    id: 2,
+    via_administracion_id: 1,
+    nombre: "Acetaminofén",
+    presentacion: "Tableta",
+    concentracion: "1000 mg",
+    descripcion: "Analgésico y antipirético"
+  },
+   {
+    id: 3,
+    via_administracion_id: 2,
+    nombre: "Acetaminofén",
+    presentacion: "Tableta",
+    concentracion: "250 mg",
+    descripcion: "Analgésico y antipirético"
+  },
 
-   {id: 2,
-    nombre: 'Loratadina',
-    descripcion: '32345'
-    }
+  
 ];
 
 const getAll = (req, res) => {

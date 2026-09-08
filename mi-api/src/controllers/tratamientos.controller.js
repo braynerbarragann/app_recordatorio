@@ -2,7 +2,7 @@ let tratamientos = [
     {
     id: 1,
     usuario_id: 1,
-    nombre: 'tratamiento1 ',
+    nombre: 'tratamiento1',
     descripcion: '21322'
     },
 
