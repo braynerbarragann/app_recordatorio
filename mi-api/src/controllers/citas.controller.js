@@ -1,58 +1,46 @@
-let citas = [
-    {
-    id: 1,
-    usuario_id: 1,
-    nombre: 'cita1 ',
-    descripcion: '21322',
-    fecha: "26/09/2026",
-    estado: "Pendiente"
-    },
+const CitaModel = require('../models/cita.model');
 
-    {
-    id: 2,
-    usuario_id: 1,
-    nombre: 'cita2',
-    descripcion: '32345',
-    fecha: "14/09/2026",
-    estado: "Pendiente"
-    },
-    {
-    id: 3,
-    usuario_id: 2,
-    nombre: 'cita3',
-    descripcion: '32345',
-    fecha: "15/10/2026",
-    estado: "Pendiente"
+const getAll = async (req, res) => {
+    try {
+        const usuarioId = req.params.usuarioId;
+
+        const resultado = await CitaModel.getByUsuarioId(usuarioId);
+
+        res.json({
+            ok: true,
+            data: resultado
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al consultar las citas'
+        });
     }
-
-];
-
-const getAll = (req, res) => {
-
-  const usuarioId = req.params.usuarioId;
-
-  const resultado = citas.filter(
-    t => t.usuario_id == usuarioId
-  );
-
-  res.json({
-    ok: true,
-    data: resultado
-  });
 };
 
-const getById = (req, res) => {
-  const item = citas.find(
-    t => t.id == req.params.id
-  );
-  if (!item) return res.status(404)
-    .json({ ok: false, msg: 'No encontrado' });
-  res.json({ ok: true, data: item });
+const getById = async (req, res) => {
+    try {
+        const item = await CitaModel.getById(req.params.id);
+
+        if (!item) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Cita no encontrada'
+            });
+        }
+
+        res.json({
+            ok: true,
+            data: item
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al consultar la cita'
+        });
+    }
 };
 
-const create = (req, res) => {
-  const nuevo = { id: Date.now(), ...req.body };
-  citas.push(nuevo);
-  res.status(201).json({ ok: true, data: nuevo });
-};
-module.exports = { getAll, getById, create };
+module.exports = { getAll, getById };

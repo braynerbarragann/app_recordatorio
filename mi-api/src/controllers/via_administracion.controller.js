@@ -1,30 +1,95 @@
-let via_administracion = [
-   {id: 1,
-    nombre: 'intravenoso',
-    descripcion: '21322'},
+const Via_AdministracionModel = require('../models/via_administracion.model');
 
-   {id: 2,
-    nombre: 'topico',
-    descripcion: '32345'
+const getAll = async (req, res) => {
+    try {
+        const resultado = await Via_AdministracionModel.getAll();
+
+        res.json({
+            ok: true,
+            data: resultado
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al consultar via administracion'
+        });
     }
-];
-
-const getAll = (req, res) => {
-  res.json({ ok: true, data: via_administracion });
 };
 
-const getById = (req, res) => {
-  const item = via_administracion.find(
-    v => v.id == req.params.id
-  );
-  if (!item) return res.status(404)
-    .json({ ok: false, msg: 'No encontrado' });
-  res.json({ ok: true, data: item });
+const getById = async (req, res) => {
+    try {
+        const item = await Via_AdministracionModel.getById(req.params.id);
+
+        if (!item) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'via administracion no encontrado'
+            });
+        }
+
+        res.json({
+            ok: true,
+            data: item
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al consultar la via administracion'
+        });
+    }
 };
 
-const create = (req, res) => {
-  const nuevo = { id: Date.now(), ...req.body };
-  via_administracion.push(nuevo);
-  res.status(201).json({ ok: true, data: nuevo });
+const getByUsuarioId = async (req, res) => {
+    try {
+        const usuarioId = req.params.usuarioId;
+
+        const resultado =
+            await Via_AdministracionModel.getByUsuarioId(usuarioId);
+
+        res.json({
+            ok: true,
+            data: resultado
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al consultar las vias administracion del usuario'
+        });
+    }
 };
-module.exports = { getAll, getById, create };
+
+const create = async (req, res) => {
+    try {
+        const nuevaViaAdministracion =
+            await Via_AdministracionModel.create(req.body);
+
+        res.status(201).json({
+            ok: true,
+            data: nuevaViaAdministracion
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al crear la via administracion'
+        });
+    }
+};
+
+module.exports = {
+    getAll,
+    getById,
+    getByUsuarioId,
+    create
+};

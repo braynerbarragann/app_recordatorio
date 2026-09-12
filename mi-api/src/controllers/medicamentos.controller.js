@@ -1,48 +1,95 @@
-let medicamentos = [
-   {
-    id: 1,
-    via_administracion_id: 1,
-    nombre: "Acetaminofén",
-    presentacion: "Tableta",
-    concentracion: "500 mg",
-    descripcion: "Analgésico y antipirético"
-  },
-   {
-    id: 2,
-    via_administracion_id: 1,
-    nombre: "Acetaminofén",
-    presentacion: "Tableta",
-    concentracion: "1000 mg",
-    descripcion: "Analgésico y antipirético"
-  },
-   {
-    id: 3,
-    via_administracion_id: 2,
-    nombre: "Acetaminofén",
-    presentacion: "Tableta",
-    concentracion: "250 mg",
-    descripcion: "Analgésico y antipirético"
-  },
+const MedicamentoModel = require('../models/medicamento.model');
 
-  
-];
+const getAll = async (req, res) => {
+    try {
+        const resultado = await MedicamentoModel.getAll();
 
-const getAll = (req, res) => {
-  res.json({ ok: true, data: medicamentos });
+        res.json({
+            ok: true,
+            data: resultado
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al consultar los medicamentos'
+        });
+    }
 };
 
-const getById = (req, res) => {
-  const item = medicamentos.find(
-    m => m.id == req.params.id
-  );
-  if (!item) return res.status(404)
-    .json({ ok: false, msg: 'No encontrado' });
-  res.json({ ok: true, data: item });
+const getById = async (req, res) => {
+    try {
+        const item = await MedicamentoModel.getById(req.params.id);
+
+        if (!item) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Medicamento no encontrado'
+            });
+        }
+
+        res.json({
+            ok: true,
+            data: item
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al consultar el medicamento'
+        });
+    }
 };
 
-const create = (req, res) => {
-  const nuevo = { id: Date.now(), ...req.body };
-  medicamentos.push(nuevo);
-  res.status(201).json({ ok: true, data: nuevo });
+const getByUsuarioId = async (req, res) => {
+    try {
+        const usuarioId = req.params.usuarioId;
+
+        const resultado =
+            await MedicamentoModel.getByUsuarioId(usuarioId);
+
+        res.json({
+            ok: true,
+            data: resultado
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al consultar los medicamentos del usuario'
+        });
+    }
 };
-module.exports = { getAll, getById, create };
+
+const create = async (req, res) => {
+    try {
+        const nuevoMedicamento =
+            await MedicamentoModel.create(req.body);
+
+        res.status(201).json({
+            ok: true,
+            data: nuevoMedicamento
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al crear el medicamento'
+        });
+    }
+};
+
+module.exports = {
+    getAll,
+    getById,
+    getByUsuarioId,
+    create
+};
