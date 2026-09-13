@@ -49,12 +49,16 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const nuevoMedicamento =
-            await MedicamentoModel.create(req.body);
-
+        const {nombre, presentacion, concentracion, descripcion} = req.body;
+        
+        if (!nombre || !presentacion || !concentracion)
+            return res.status(400).json({ ok: false, msg: 'nombre, presentacion y concentracion, requerido' });
+              
+        const nuevaMedicamento = await MedicamentoModel.create(nombre, presentacion, concentracion, descripcion);
+        
         res.status(201).json({
             ok: true,
-            data: nuevoMedicamento
+            data: nuevaMedicamento
         });
 
     } catch (error) {

@@ -48,8 +48,12 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
+        const {nombre, descripcion} = req.body;
+        if (!nombre)
+            return res.status(400).json({ ok: false, msg: 'nombre requerido' });
+      
         const nuevaViaAdministracion =
-            await Via_AdministracionModel.create(req.body);
+            await Via_AdministracionModel.create(nombre, descripcion);
 
         res.status(201).json({
             ok: true,

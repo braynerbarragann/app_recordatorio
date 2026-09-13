@@ -17,7 +17,17 @@ const getById = async (id) => {
     return rows[0];
 };
 
+const create = async (nombre, descripcion) => {
+  
+    const [result] = await pool.query(
+        'INSERT INTO via_administracion (nombre, descripcion) VALUES (?, ?)',
+        [nombre, descripcion]
+    );
+    return { id: result.insertId, nombre, descripcion};
+};
+
 module.exports = {
     getAll,
     getById,
+    create
 };
