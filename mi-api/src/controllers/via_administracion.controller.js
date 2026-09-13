@@ -45,27 +45,6 @@ const getById = async (req, res) => {
     }
 };
 
-const getByUsuarioId = async (req, res) => {
-    try {
-        const usuarioId = req.params.usuarioId;
-
-        const resultado =
-            await Via_AdministracionModel.getByUsuarioId(usuarioId);
-
-        res.json({
-            ok: true,
-            data: resultado
-        });
-
-    } catch (error) {
-        console.error(error);
-
-        res.status(500).json({
-            ok: false,
-            msg: 'Error al consultar las vias administracion del usuario'
-        });
-    }
-};
 
 const create = async (req, res) => {
     try {
@@ -90,6 +69,5 @@ const create = async (req, res) => {
 module.exports = {
     getAll,
     getById,
-    getByUsuarioId,
     create
 };

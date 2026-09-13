@@ -17,7 +17,7 @@ const getById = async (id) => {
 
 const getByUsuarioId = async (usuarioId) => {
     const [rows] = await pool.query(
-        'SELECT * FROM cita WHERE usuario_id = ? ORDER BY id DESC',
+        'SELECT * FROM cita WHERE usuario_id = ? ORDER BY fecha_hora DESC',
         [usuarioId]
     );
     return rows;
