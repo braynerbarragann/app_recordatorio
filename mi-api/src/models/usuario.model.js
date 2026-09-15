@@ -14,7 +14,7 @@ const getById = async (id) => {
   return rows[0]; // undefined si no existe
 };
 
-const create = async ({ nombre, genero, correo, telefono, fecha_nacimiento, contraseña_hash }) => {
+const create = async (nombre, genero, correo, telefono, fecha_nacimiento, contraseña_hash) => {
   const [result] = await pool.query(
     'INSERT INTO usuario (nombre, genero, correo, telefono, fecha_nacimiento, contraseña_hash) VALUES (?, ?, ?, ?, ?, ?)',
     [nombre, genero, correo, telefono, fecha_nacimiento, contraseña_hash]

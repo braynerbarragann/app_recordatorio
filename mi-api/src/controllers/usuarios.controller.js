@@ -28,7 +28,7 @@ const create = async (req, res) => {
     if (!nombre || !correo || !contraseña_hash)
       return res.status(400).json({ ok: false, msg: 'nombre, correo y contraseña requeridos' });
 
-    const data = await UsuarioModel.create({ nombre, genero, correo, telefono, fecha_nacimiento, contraseña_hash  });
+    const data = await UsuarioModel.create(nombre, genero, correo, telefono, fecha_nacimiento, contraseña_hash);
 
     res.status(201).json({ ok: true, data });
 

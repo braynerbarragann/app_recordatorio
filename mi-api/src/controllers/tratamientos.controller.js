@@ -1,52 +1,78 @@
-let tratamientos = [
-    {
-    id: 1,
-    usuario_id: 1,
-    nombre: 'tratamiento1',
-    descripcion: '21322'
-    },
+const TrataminetoModel = require('../models/tratamiento.model');
 
-    {
-    id: 2,
-    usuario_id: 1,
-    nombre: 'tratamiento2',
-    descripcion: '32345'
-    },
-    {
-    id: 3,
-    usuario_id: 2,
-    nombre: 'tratamiento3',
-    descripcion: '32345'
+const getAllByUsuarioId = async (req, res) => {
+    try {
+        const usuarioId = req.params.usuarioId;
+
+        const resultado = await TrataminetoModel.getAllByUsuarioId(usuarioId);
+
+        res.json({
+            ok: true,
+            data: resultado
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al consultar tratamientos'
+        });
     }
-
-];
-
-const getAll = (req, res) => {
-
-  const usuarioId = req.params.usuarioId;
-
-  const resultado = tratamientos.filter(
-    t => t.usuario_id == usuarioId
-  );
-
-  res.json({
-    ok: true,
-    data: resultado
-  });
 };
 
-const getById = (req, res) => {
-  const item = tratamientos.find(
-    t => t.id == req.params.id
-  );
-  if (!item) return res.status(404)
-    .json({ ok: false, msg: 'No encontrado' });
-  res.json({ ok: true, data: item });
+const getById = async (req, res) => {
+    try {
+        const item = await TrataminetoModel.getById(req.params.id, req.params.usuarioId);
+
+        if (!item) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Tratamiento no encontrada'
+            });
+        }
+
+        res.json({
+            ok: true,
+            data: item
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al consultar tratamiento'
+        });
+    }
 };
 
-const create = (req, res) => {
-  const nuevo = { id: Date.now(), ...req.body };
-  tratamientos.push(nuevo);
-  res.status(201).json({ ok: true, data: nuevo });
+
+
+const create = async (req, res) => {
+    try {
+        const {nombre, descripcion} = req.body;
+        const usuarioId = req.params.usuarioId;
+
+        if (!usuarioId || !nombre)
+            return res.status(400).json({ ok: false, msg: 'usuario_id y nombre requerido' });
+      
+        const nuevoTratamientoModel=
+            await TrataminetoModel.create(usuarioId, nombre, descripcion);
+
+        res.status(201).json({
+            ok: true,
+            data: nuevoTratamientoModel
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al crear tratamiento'
+        });
+    }
 };
-module.exports = { getAll, getById, create };
+
+module.exports = {
+    getAllByUsuarioId,
+    getById,
+    create
+};

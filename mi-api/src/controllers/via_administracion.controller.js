@@ -21,6 +21,7 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
     try {
+        
         const item = await Via_AdministracionModel.getById(req.params.id);
 
         if (!item) {
