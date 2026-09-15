@@ -1,38 +1,40 @@
-let usuarios = [
-  { id: 1,
-    nombre: 'Lap', 
-    telefono: '213213123',
-    genero: 'Masculino',
-    correo: 'Lap@gmail.com',
-    edad: '45'
-     },
+let UsuarioModel = require('../models/usuario.model')
 
-  { id: 2,
-    nombre: 'Carlos',
-    telefono: '3124356622',
-    genero: 'Masculino',
-    correo: 'carlos@gmail.com',
-    edad: '68'
-  }      
-];
-
-const getAll = (req, res) => {
-  res.json({ ok: true, data: usuarios });
+const getAll = async (req, res) => {
+  try {
+    const data = await UsuarioModel.getAll();
+    res.json({ ok: true, data });
+  } catch (err) {
+    res.status(500).json({ ok: false, msg: err.message });
+  }
 };
 
-const getById = (req, res) => {
-  const item = usuarios.find(
-    u => u.id == req.params.id
-  );
-  if (!item) return res.status(404)
-    .json({ ok: false, msg: 'No encontrado' });
-  res.json({ ok: true, data: item });
+const getById = async (req, res) => {
+  try {
+    const data = await UsuarioModel.getById(req.params.id);
+    if (!data) return res.status(404)
+      .json({ ok: false, msg: 'Usuario no encontrado' });
+    
+    res.json({ ok: true, data });
+  } catch (err) {
+    res.status(500).json({ ok: false, msg: err.message });
+  }
 };
 
-const create = (req, res) => {
-  const nuevo = { id: Date.now(), ...req.body };
-  usuarios.push(nuevo);
-  res.status(201).json({ ok: true, data: nuevo });
+const create = async (req, res) => {
+  try {
+    const { nombre, genero, correo, telefono, fecha_nacimiento, contraseña_hash } = req.body;
+
+    if (!nombre || !correo || !contraseña_hash)
+      return res.status(400).json({ ok: false, msg: 'nombre, correo y contraseña requeridos' });
+
+    const data = await UsuarioModel.create(nombre, genero, correo, telefono, fecha_nacimiento, contraseña_hash);
+
+    res.status(201).json({ ok: true, data });
+
+  } catch (err) {
+    res.status(500).json({ ok: false, msg: err.message });
+  }
 };
 
 module.exports = { getAll, getById, create};

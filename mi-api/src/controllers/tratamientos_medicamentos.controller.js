@@ -10,6 +10,7 @@ let tratamientos_medicamentos = [
     fecha_inicio: '2',
     fecha_fin: '2'
     },
+
     {
     id: 2,
     tratamiento_id: 3,
