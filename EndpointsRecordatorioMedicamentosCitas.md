@@ -1,56 +1,168 @@
-Descripcion: El proyecto consiste en una app que gestione el recordatorio de toma de medicamentos y citas medicas del usuario.
+Descripcion: La API tiene como objetivo proporcionar los servicios backend para una aplicación de gestión y recordatorio de medicamentos y citas médicas. Permite administrar usuarios y pacientes, registrar citas y diagnósticos, gestionar tratamientos y medicamentos, configurar sus horarios y frecuencias de administración, y llevar un registro de las tomas realizadas. 
 
 Endpoints:
+
+TIPO_DOCUMENTO
+
+POST   /tipos-documentos
+GET    /tipos-documentos
+GET    /tipos-documentos/{tipo_documento_id}
+PUT    /tipos-documentos/{tipo_documento_id}
+DELETE /tipos-documentos/{tipo_documento_id}
+
+GENERO
+
+POST   /generos
+GET    /generos
+GET    /generos/{genero_id}
+PUT    /generos/{genero_id}
+DELETE /generos/{genero_id}
 
 USUARIOS
 
 POST   /usuarios
+GET    /usuarios
 GET    /usuarios/{usuario_id}
 PUT    /usuarios/{usuario_id}
 DELETE /usuarios/{usuario_id}
 
+PACIENTES
+
+POST   /pacientes
+GET    /pacientes
+GET    /pacientes/{paciente_id}
+PUT    /pacientes/{paciente_id}
+DELETE /pacientes/{paciente_id}
+
+TIPO_RELACION
+
+POST   /tipos-relacion
+GET    /tipos-relacion
+GET    /tipos-relacion/{tipo_relacion_id}
+PUT    /tipos-relacion/{tipo_relacion_id}
+DELETE /tipos-relacion/{tipo_relacion_id}
+
+RELACION USUARIO-PACIENTE
+
+POST   /usuarios/{usuario_id}/pacientes
+GET    /usuarios/{usuario_id}/pacientes
+GET    /usuarios/{usuario_id}/pacientes/{usuario_paciente_id}
+PUT    /usuarios/{usuario_id}/pacientes/{usuario_paciente_id}
+DELETE /usuarios/{usuario_id}/pacientes/{usuario_paciente_id}
+
+TIPOS CITAS
+
+POST   /tipos-citas
+GET    /tipos-citas
+GET    /tipos-citas/{tipo_cita_id}
+PUT    /tipos-citas/{tipo_cita_id}
+DELETE /tipos-citas/{tipo_cita_id}
+
 CITAS
 
-POST   /usuarios/{usuario_id}/citas
-GET    /usuarios/{usuario_id}/citas
-GET    /usuarios/{usuario_id}/citas/{cita_id}
-PUT    /usuarios/{usuario_id}/citas/{cita_id}
-DELETE /usuarios/{usuario_id}/citas/{cita_id}
+POST   /pacientes/{paciente_id}/citas
+GET    /pacientes/{paciente_id}/citas
+GET    /pacientes/{paciente_id}/citas/{cita_id}
+PUT    /pacientes/{paciente_id}/citas/{cita_id}
+DELETE /pacientes/{paciente_id}/citas/{cita_id}
+
+TIPOS ENFERMEDADES
+
+POST   /tipos-enfermedades
+GET    /tipos-enfermedades
+GET    /tipos-enfermedades/{tipo_enfermedad_id}
+PUT    /tipos-enfermedades/{tipo_enfermedad_id}
+DELETE /tipos-enfermedades/{tipo_enfermedad_id}
+
+
+ENFERMEDADES
+
+POST   /enfermedades
+GET    /enfermedades
+GET    /enfermedades/{enfermedad_id}
+PUT    /enfermedades/{enfermedad_id}
+DELETE /enfermedades/{enfermedad_id}
+
+DIAGNOSTICOS
+
+POST   /pacientes/{paciente_id}/diagnosticos
+GET    /pacientes/{paciente_id}/diagnosticos
+GET    /pacientes/{paciente_id}/diagnosticos/{diagnostico_id}
+PUT    /pacientes/{paciente_id}/diagnosticos/{diagnostico_id}
+DELETE /pacientes/{paciente_id}/diagnosticos/{diagnostico_id}
+
 
 TRATAMIENTOS
 
-POST   /usuarios/{usuario_id}/tratamientos
-GET    /usuarios/{usuario_id}/tratamientos
-GET    /usuarios/{usuario_id}/tratamientos/{tratamiento_id}
-PUT    /usuarios/{usuario_id}/tratamientos/{tratamiento_id}
-DELETE /usuarios/{usuario_id}/tratamientos/{tratamiento_id}
+POST   /tratamientos
+GET    /tratamientos
+GET    /tratamientos/{tratamiento_id}
+PUT    /tratamientos/{tratamiento_id}
+DELETE /tratamientos/{tratamiento_id}
+
 
 TRATAMIENTOS MEDICAMENTOS
 
-POST   /usuarios/{usuario_id}/tratamientos/{tratamiento_id}/medicamentos
-GET    /usuarios/{usuario_id}/tratamientos/{tratamiento_id}/medicamentos
-GET    /usuarios/{usuario_id}/tratamientos/{tratamiento_id}/medicamentos/{medicamento_id}
-PUT    /usuarios/{usuario_id}/tratamientos/{tratamiento_id}/medicamentos/{medicamento_id}
-DELETE /usuarios/{usuario_id}/tratamientos/{tratamiento_id}/medicamentos/{medicamento_id}
+POST   /tratamientos/{tratamiento_id}/medicamentos
+GET    /tratamientos/{tratamiento_id}/medicamentos
+GET    /tratamientos/{tratamiento_id}/medicamentos/{tratamiento_medicamento_id}
+PUT    /tratamientos/{tratamiento_id}/medicamentos/{tratamiento_medicamento_id}
+DELETE /tratamientos/{tratamiento_id}/medicamentos/{tratamiento_medicamento_id}
 
-TOMA MEDICAMENTOS
+TOMAS MEDICAMENTOS
 
-POST   /usuarios/{usuario_id}/tratamientos/{tratamiento_id}/medicamentos/{tratamiento-medicamento_id}/tomas
-GET    /usuarios/{usuario_id}/tratamientos/{tratamiento_id}/medicamentos/{tratamiento-medicamento_id}/tomas
-GET    /usuarios/{usuario_id}/tratamientos/{tratamiento_id}/medicamentos/{tratamiento-medicamento_id}/tomas/{toma_id}
-PUT    /usuarios/{usuario_id}/tratamientos/{tratamiento_id}/medicamentos/{tratamiento-medicamento_id}/tomas/{toma_id}
-DELETE /usuarios/{usuario_id}/tratamientos/{tratamiento_id}/medicamentos/{tratamiento-medicamento_id}/tomas/{toma_id}
+POST   /tratamiento-medicamentos/{tratamiento_medicamento_id}/tomas
+GET    /tratamiento-medicamentos/{tratamiento_medicamento_id}/tomas
+GET    /tratamiento-medicamentos/{tratamiento_medicamento_id}/tomas/{toma_medicamento_id}
+PUT    /tratamiento-medicamentos/{tratamiento_medicamento_id}/tomas/{toma_medicamento_id}
+DELETE /tratamiento-medicamentos/{tratamiento_medicamento_id}/tomas/{toma_medicamento_id}
+
+
+HORARIO MEDICAMENTO
+
+POST   /tratamiento-medicamentos/{tratamiento_medicamento_id}/horarios
+GET    /tratamiento-medicamentos/{tratamiento_medicamento_id}/horarios
+GET    /tratamiento-medicamentos/{tratamiento_medicamento_id}/horarios/{horario_medicamento_id}
+PUT    /tratamiento-medicamentos/{tratamiento_medicamento_id}/horarios/{horario_medicamento_id}
+DELETE /tratamiento-medicamentos/{tratamiento_medicamento_id}/horarios/{horario_medicamento_id}
+
 
 MEDICAMENTOS
 
+POST   /medicamentos
 GET    /medicamentos
 GET    /medicamentos/{medicamento_id}
-POST   /medicamentos
+PUT    /medicamentos/{medicamento_id}
+DELETE /medicamentos/{medicamento_id}
 
-VIAS DE ADMINISTRACION
+VIA ADMINISTRACION
 
-GET   /vias-administracion
-GET   /vias-administracion/{via-administracion_id}
+POST   /vias-administracion
+GET    /vias-administracion
+GET    /vias-administracion/{via_administracion_id}
+PUT    /vias-administracion/{via_administracion_id}
+DELETE /vias-administracion/{via_administracion_id}
+
+TIPO FRECUENCIA
+
+POST   /tipos-frecuencia
+GET    /tipos-frecuencia
+GET    /tipos-frecuencia/{tipo_frecuencia_id}
+PUT    /tipos-frecuencia/{tipo_frecuencia_id}
+DELETE /tipos-frecuencia/{tipo_frecuencia_id}
+
+DIA SEMANA
+
+POST   /dias-semana
+GET    /dias-semana
+GET    /dias-semana/{dia_semana_id}
+PUT    /dias-semana/{dia_semana_id}
+DELETE /dias-semana/{dia_semana_id}
+
+
+
+
+
 
 
 
