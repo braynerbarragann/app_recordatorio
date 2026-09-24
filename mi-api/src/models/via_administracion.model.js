@@ -26,8 +26,31 @@ const create = async (nombre, descripcion) => {
     return { id: result.insertId, nombre, descripcion};
 };
 
+const update = async (id, nombre, descripcion) => {
+
+    const [result] = await pool.query('UPDATE via_administracion SET nombre= ?, descripcion= ? WHERE id = ?',[nombre, descripcion, id]);
+
+    if (result.affectedRows === 0) {
+        return null;
+    }
+
+    return { id, nombre, descripcion};
+
+}
+const remove = async (id) => {
+
+    const [result] = await pool.query('DELETE FROM via_administracion WHERE id = ?',[id]);
+
+    if (result.affectedRows === 0) {
+        return null;
+    }
+
+    return { id };
+}
+
 module.exports = {
     getAll,
     getById,
-    create
+    create,
+    remove
 };

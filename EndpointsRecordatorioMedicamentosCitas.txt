@@ -158,14 +158,3 @@ GET    /dias-semana
 GET    /dias-semana/{dia_semana_id}
 PUT    /dias-semana/{dia_semana_id}
 DELETE /dias-semana/{dia_semana_id}
-
-
-
-
-
-
-
-
-
-
-

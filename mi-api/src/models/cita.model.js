@@ -2,7 +2,7 @@ const pool = require('../config/db');
 
 const getAllByUsuarioId = async (usuarioId) => {
     const [rows] = await pool.query(
-        'SELECT * FROM cita WHERE usuario_id = ? ORDER BY fecha_hora DESC',
+        'SELECT * FROM cita WHERE paciente_id = ? ORDER BY fecha_hora',
         [usuarioId]
     );
     return rows;
@@ -10,7 +10,7 @@ const getAllByUsuarioId = async (usuarioId) => {
 
 const getById = async (citaId, usuarioId) => {
     const [rows] = await pool.query(
-        'SELECT * FROM cita WHERE id = ? AND usuario_id = ?',
+        'SELECT * FROM cita WHERE id = ? AND paciente_id = ?',
         [citaId, usuarioId]
     );
     return rows[0];
