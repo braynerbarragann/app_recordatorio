@@ -18,6 +18,7 @@ const medicamentosRouter = require('./routes/medicamentos.routes');
 app.use('/api/medicamentos', medicamentosRouter);
 
 const via_administracionRouter = require('./routes/via_administracion.routes');
-app.use('/api/via_administracion', via_administracionRouter);
+app.use('/api/via-administracion', via_administracionRouter);
+
 
 module.exports = app;

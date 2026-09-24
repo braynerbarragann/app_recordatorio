@@ -37,6 +37,7 @@ const update = async (id, nombre, descripcion) => {
     return { id, nombre, descripcion};
 
 }
+
 const remove = async (id) => {
 
     const [result] = await pool.query('DELETE FROM via_administracion WHERE id = ?',[id]);
@@ -52,5 +53,6 @@ module.exports = {
     getAll,
     getById,
     create,
+    update,
     remove
 };
