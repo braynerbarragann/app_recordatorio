@@ -22,5 +22,28 @@ const create = async (nombre, correo, telefono, contrasena_hash) => {
   return { id: result.insertId, nombre, correo, telefono};
 };
 
+const update = async (id, nombre, correo, telefono) => {
 
-module.exports = {getAll, getById, create};
+    const [result] = await pool.query('UPDATE usuario SET nombre= ?, correo= ?, telefono= ? WHERE id = ?',[nombre, correo, telefono, id]);
+
+    if (result.affectedRows === 0) {
+        return null;
+    }
+
+    return { id, nombre, correo, telefono};
+
+}
+
+const remove = async (id) => {
+
+    const [result] = await pool.query('DELETE FROM usuario WHERE id = ?',[id]);
+
+    if (result.affectedRows === 0) {
+        return null;
+    }
+
+    return { id };
+}
+
+
+module.exports = {getAll, getById, create, update, remove};

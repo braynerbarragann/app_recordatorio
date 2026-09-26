@@ -11,6 +11,8 @@ const tomasCtrl = require('../controllers/tomas_medicamentos.controller');
 router.get('/', pacientesCtrl.getAll);
 router.get('/:id', pacientesCtrl.getById);
 router.post('/', pacientesCtrl.create);
+router.put('/:id', pacientesCtrl.update);
+router.delete('/:id', pacientesCtrl.remove);
 
 router.get('/:usuarioId/tratamientos', tratamientosCtrl.getAllByUsuarioId);
 router.get('/:usuarioId/tratamientos/:id', tratamientosCtrl.getById);

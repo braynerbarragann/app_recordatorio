@@ -37,4 +37,67 @@ const create = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, create};
+const update = async (req, res) =>{
+    try {
+        const { id } = req.params;
+        const { nombre, correo, telefono } = req.body
+
+        if (!nombre || !correo) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El nombre y correo es obligatorio'
+            });
+        };
+
+        const updateUsuario = await UsuarioModel.update(id, nombre, correo, telefono);
+
+        if (!updateUsuario) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Usuario no encontrado'
+            });
+        };
+
+        return res.status(200).json({
+            ok: true,
+            data: updateUsuario
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error al editar usuario'
+        });
+    }
+};
+
+const remove = async (req, res) => {
+    try {
+        const resultado =
+            await UsuarioModel.remove(req.params.id);
+
+        if (!resultado) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Usuario no encontrado'
+            });
+        }
+
+        return res.status(200).json({
+            ok: true,
+            msg: 'Usuario eliminado correctamente'
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error al eliminar la usuario'
+        });
+    }
+};
+
+module.exports = { getAll, getById, create, update, remove};
