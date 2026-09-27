@@ -71,8 +71,74 @@ const create = async (req, res) => {
     }
 };
 
+const update = async (req, res) =>{
+    try {
+        const { id } = req.params;
+        const { nombre, presentacion, concentracion,  descripcion } = req.body
+
+        if (!nombre) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El nombre es obligatorio'
+            });
+        };
+
+        const updateMedicamento = await MedicamentoModel.update(id, nombre, presentacion, concentracion,  descripcion);
+
+        if (!updateMedicamento) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'medicamento no encontrado'
+            });
+        };
+
+        return res.status(200).json({
+            ok: true,
+            data: updateMedicamento
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error al editar medicamento'
+        });
+    }
+};
+
+const remove = async (req, res) => {
+    try {
+        const resultado =
+            await MedicamentoModel.remove(req.params.id);
+
+        if (!resultado) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'medicamento no encontrado'
+            });
+        }
+
+        return res.status(200).json({
+            ok: true,
+            msg: 'medicamento eliminado correctamente'
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error al eliminar el medicamento'
+        });
+    }
+};
+
+
 module.exports = {
     getAll,
     getById,
-    create
+    create,
+    update,
+    remove
 };
