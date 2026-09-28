@@ -49,12 +49,12 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const {nombre, presentacion, concentracion, descripcion} = req.body;
+        const {nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion} = req.body;
         
-        if (!nombre || !presentacion || !concentracion)
-            return res.status(400).json({ ok: false, msg: 'nombre, presentacion y concentracion, requerido' });
+        if (!nombre || !presentacion || !concentracion_valor || !concentracion_unidad)
+            return res.status(400).json({ ok: false, msg: 'nombre, presentacion y concentracion_valor, concentracion_unidad, requerido' });
               
-        const nuevaMedicamento = await MedicamentoModel.create(nombre, presentacion, concentracion, descripcion);
+        const nuevaMedicamento = await MedicamentoModel.create(nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion);
         
         res.status(201).json({
             ok: true,
@@ -74,7 +74,7 @@ const create = async (req, res) => {
 const update = async (req, res) =>{
     try {
         const { id } = req.params;
-        const { nombre, presentacion, concentracion,  descripcion } = req.body
+        const { nombre, presentacion, concentracion_valor, concentracion_unidad,  descripcion } = req.body
 
         if (!nombre) {
             return res.status(400).json({
@@ -83,7 +83,7 @@ const update = async (req, res) =>{
             });
         };
 
-        const updateMedicamento = await MedicamentoModel.update(id, nombre, presentacion, concentracion,  descripcion);
+        const updateMedicamento = await MedicamentoModel.update(id, nombre, presentacion, concentracion_valor, concentracion_unidad,  descripcion);
 
         if (!updateMedicamento) {
             return res.status(404).json({
