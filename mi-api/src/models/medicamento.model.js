@@ -18,22 +18,44 @@ const getById = async (id) => {
 };
 
 const create = async (nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion) => {
-  
+    const presentacionMedicamento = presentacion ?? null;
+    const concentracionValor = concentracion_valor ?? null;
+    const concentracionUnidad = concentracion_unidad ?? null;
+    const descripcionMedicamento = descripcion ?? null;
+
     const [result] = await pool.query(
         'INSERT INTO medicamento (nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion) VALUES (?, ?, ?, ?, ?)',
-        [nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion]
+        [nombre, presentacionMedicamento, concentracionValor, concentracionUnidad, descripcionMedicamento]
     );
-    return { id: result.insertId, nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion};
+    return {
+        id: result.insertId,
+        nombre,
+        presentacion: presentacionMedicamento,
+        concentracion_valor: concentracionValor,
+        concentracion_unidad: concentracionUnidad,
+        descripcion: descripcionMedicamento
+    };
 };
 const update = async (id, nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion) => {
+    const presentacionMedicamento = presentacion ?? null;
+    const concentracionValor = concentracion_valor ?? null;
+    const concentracionUnidad = concentracion_unidad ?? null;
+    const descripcionMedicamento = descripcion ?? null;
 
-    const [result] = await pool.query('UPDATE medicamento SET nombre= ?, presentacion= ?, concentracion_valor= ?, concentracion_unidad= ?, descripcion= ? WHERE id = ?',[nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion, id]);
+    const [result] = await pool.query('UPDATE medicamento SET nombre= ?, presentacion= ?, concentracion_valor= ?, concentracion_unidad= ?, descripcion= ? WHERE id = ?',[nombre, presentacionMedicamento, concentracionValor, concentracionUnidad, descripcionMedicamento, id]);
 
     if (result.affectedRows === 0) {
         return null;
     }
 
-    return { id, nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion};
+    return {
+        id,
+        nombre,
+        presentacion: presentacionMedicamento,
+        concentracion_valor: concentracionValor,
+        concentracion_unidad: concentracionUnidad,
+        descripcion: descripcionMedicamento
+    };
 
 }
 

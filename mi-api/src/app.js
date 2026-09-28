@@ -13,16 +13,16 @@ app.use('/api/usuarios', usuariosRouter);
 const pacientesRouter = require('./routes/pacientes.routes');
 app.use('/api/pacientes', pacientesRouter);
 
-const medicamentoRouter = require('./routes/medicamento.routes');
-app.use('/api/medicamentos', medicamentoRouter);
-
-const via_administracionRouter = require('./routes/via_administracion.routes');
-app.use('/api/vias-administracion', via_administracionRouter);
+const medicamentosRouter = require('./routes/medicamento.routes');
+app.use('/api/medicamentos', medicamentosRouter);
 
 const enfermedadesRouter = require('./routes/enfermedades.routes');
 app.use('/api/enfermedades', enfermedadesRouter);
 
+//CATALOGOS
 
+const via_administracionRouter = require('./routes/via_administracion.routes');
+app.use('/api/vias-administracion', via_administracionRouter);
 
 const tipo_documentoRouter = require('./routes/tipo_documento.routes');
 app.use('/api/tipos-documento', tipo_documentoRouter);

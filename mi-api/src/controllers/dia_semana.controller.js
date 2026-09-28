@@ -1,5 +1,11 @@
 const DiaSemanaModel = require('../models/dia_semana.model');
 
+const faltanCampos = (body, camposRequeridos) => {
+    return camposRequeridos.some(campo =>
+        !Object.prototype.hasOwnProperty.call(body, campo)
+    );
+};
+
 const getAll = async (req, res) => {
     try {
         const resultado = await DiaSemanaModel.getAll();
@@ -49,12 +55,12 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const { nombre } = req.body;
-        if (!nombre)
-            return res.status(400).json({ ok: false, msg: 'nombre requerido' });
+        const { id, nombre } = req.body;
+        if (faltanCampos(req.body, ['id', 'nombre']) || !Number.isInteger(id) || id < 1 || id > 7 || !nombre)
+            return res.status(400).json({ ok: false, msg: 'id (entero entre 1 y 7) y nombre son requeridos' });
       
         const nuevodia_semana =
-            await DiaSemanaModel.create(nombre);
+            await DiaSemanaModel.create(id, nombre);
 
         return res.status(201).json({
             ok: true,
@@ -76,7 +82,7 @@ const update = async (req, res) =>{
         const { id } = req.params;
         const { nombre } = req.body
 
-        if (!nombre) {
+        if (faltanCampos(req.body, ['nombre']) || !nombre) {
             return res.status(400).json({
                 ok: false,
                 msg: 'El nombre es obligatorio'

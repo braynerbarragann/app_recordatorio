@@ -1,10 +1,19 @@
 const MedicamentoModel = require('../models/medicamento.model');
 
+const faltanCampos = (body, camposRequeridos) => {
+    return camposRequeridos.some(campo =>
+        !Object.prototype.hasOwnProperty.call(body, campo)
+    );
+};
+
+const concentracionValida = valor =>
+    valor == null || (typeof valor === 'number' && Number.isFinite(valor) && valor > 0);
+
 const getAll = async (req, res) => {
     try {
         const resultado = await MedicamentoModel.getAll();
 
-        res.json({
+        return res.json({
             ok: true,
             data: resultado
         });
@@ -12,9 +21,9 @@ const getAll = async (req, res) => {
     } catch (error) {
         console.error(error);
 
-        res.status(500).json({
+        return res.status(500).json({
             ok: false,
-            msg: 'Error al consultar los medicamentos'
+            msg: error.message
         });
     }
 };
@@ -30,7 +39,7 @@ const getById = async (req, res) => {
             });
         }
 
-        res.json({
+        return res.json({
             ok: true,
             data: item
         });
@@ -38,9 +47,9 @@ const getById = async (req, res) => {
     } catch (error) {
         console.error(error);
 
-        res.status(500).json({
+        return res.status(500).json({
             ok: false,
-            msg: 'Error al consultar el medicamento'
+            msg: error.message
         });
     }
 };
@@ -49,14 +58,17 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const {nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion} = req.body;
+        const { nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion } = req.body;
         
-        if (!nombre || !presentacion || !concentracion_valor || !concentracion_unidad)
-            return res.status(400).json({ ok: false, msg: 'nombre, presentacion y concentracion_valor, concentracion_unidad, requerido' });
+        if (faltanCampos(req.body, ['nombre']) || !nombre)
+            return res.status(400).json({ ok: false, msg: 'nombre es requerido' });
+
+        if (!concentracionValida(concentracion_valor))
+            return res.status(400).json({ ok: false, msg: 'concentracion_valor debe ser un número mayor que cero o null' });
               
         const nuevaMedicamento = await MedicamentoModel.create(nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion);
         
-        res.status(201).json({
+        return res.status(201).json({
             ok: true,
             data: nuevaMedicamento
         });
@@ -64,9 +76,9 @@ const create = async (req, res) => {
     } catch (error) {
         console.error(error);
 
-        res.status(500).json({
+        return res.status(500).json({
             ok: false,
-            msg: 'Error al crear el medicamento'
+            msg: error.message
         });
     }
 };
@@ -74,16 +86,27 @@ const create = async (req, res) => {
 const update = async (req, res) =>{
     try {
         const { id } = req.params;
-        const { nombre, presentacion, concentracion_valor, concentracion_unidad,  descripcion } = req.body
+        const { nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion } = req.body
 
-        if (!nombre) {
+        const camposRequeridos = [
+            'nombre',
+            'presentacion',
+            'concentracion_valor',
+            'concentracion_unidad',
+            'descripcion'
+        ];
+
+        if (faltanCampos(req.body, camposRequeridos) || !nombre) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El nombre es obligatorio'
+                msg: 'Todos los campos deben enviarse; los opcionales pueden ser null'
             });
         };
 
-        const updateMedicamento = await MedicamentoModel.update(id, nombre, presentacion, concentracion_valor, concentracion_unidad,  descripcion);
+        if (!concentracionValida(concentracion_valor))
+            return res.status(400).json({ ok: false, msg: 'concentracion_valor debe ser un número mayor que cero o null' });
+
+        const updateMedicamento = await MedicamentoModel.update(id, nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion);
 
         if (!updateMedicamento) {
             return res.status(404).json({
@@ -100,10 +123,7 @@ const update = async (req, res) =>{
     } catch (error) {
         console.error(error);
 
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error al editar medicamento'
-        });
+        return res.status(500).json({ ok: false, msg: error.message });
     }
 };
 
@@ -127,10 +147,7 @@ const remove = async (req, res) => {
     } catch (error) {
         console.error(error);
 
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error al eliminar el medicamento'
-        });
+        return res.status(500).json({ ok: false, msg: error.message });
     }
 };
 

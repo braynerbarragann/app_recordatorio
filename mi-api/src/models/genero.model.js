@@ -18,23 +18,25 @@ const getById = async (id) => {
 };
 
 const create = async (nombre, abreviatura) => {
+    const abreviaturaGenero = abreviatura ?? null;
   
     const [result] = await pool.query(
         'INSERT INTO genero (nombre, abreviatura) VALUES (?, ?)',
-        [nombre, abreviatura]
+        [nombre, abreviaturaGenero]
     );
-    return { id: result.insertId, nombre, abreviatura};
+    return { id: result.insertId, nombre, abreviatura: abreviaturaGenero};
 };
 
 const update = async (id, nombre, abreviatura) => {
+    const abreviaturaGenero = abreviatura ?? null;
 
-    const [result] = await pool.query('UPDATE genero SET nombre= ?, abreviatura= ? WHERE id = ?',[nombre, abreviatura, id]);
+    const [result] = await pool.query('UPDATE genero SET nombre= ?, abreviatura= ? WHERE id = ?',[nombre, abreviaturaGenero, id]);
 
     if (result.affectedRows === 0) {
         return null;
     }
 
-    return { id, nombre, abreviatura};
+    return { id, nombre, abreviatura: abreviaturaGenero};
 
 }
 

@@ -1,5 +1,11 @@
 const GeneroModel = require('../models/genero.model');
 
+const faltanCampos = (body, camposRequeridos) => {
+    return camposRequeridos.some(campo =>
+        !Object.prototype.hasOwnProperty.call(body, campo)
+    );
+};
+
 const getAll = async (req, res) => {
     try {
         const resultado = await GeneroModel.getAll();
@@ -50,7 +56,7 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
     try {
         const { nombre, abreviatura } = req.body;
-        if (!nombre)
+        if (faltanCampos(req.body, ['nombre']) || !nombre)
             return res.status(400).json({ ok: false, msg: 'nombre requerido' });
       
         const nuevoGenero =
@@ -76,7 +82,7 @@ const update = async (req, res) =>{
         const { id } = req.params;
         const { nombre, abreviatura } = req.body
 
-        if (!nombre) {
+        if (faltanCampos(req.body, ['nombre', 'abreviatura']) || !nombre) {
             return res.status(400).json({
                 ok: false,
                 msg: 'El nombre es obligatorio'

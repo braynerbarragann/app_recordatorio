@@ -17,13 +17,13 @@ const getById = async (id) => {
     return rows[0];
 };
 
-const create = async (nombre) => {
+const create = async (id, nombre) => {
   
     const [result] = await pool.query(
-        'INSERT INTO dia_semana (nombre) VALUES (?)',
-        [nombre]
+        'INSERT INTO dia_semana (id, nombre) VALUES (?, ?)',
+        [id, nombre]
     );
-    return { id: result.insertId, nombre};
+    return { id, nombre};
 };
 
 const update = async (id, nombre) => {
