@@ -18,23 +18,25 @@ const getById = async (id) => {
 };
 
 const create = async (nombre, descripcion) => {
+    const descripcionTipoCita = descripcion ?? null;
   
     const [result] = await pool.query(
         'INSERT INTO tipo_cita (nombre, descripcion) VALUES (?, ?)',
-        [nombre, descripcion]
+        [nombre, descripcionTipoCita]
     );
-    return { id: result.insertId, nombre, descripcion};
+    return { id: result.insertId, nombre, descripcion: descripcionTipoCita};
 };
 
 const update = async (id, nombre, descripcion) => {
+    const descripcionTipoCita = descripcion ?? null;
 
-    const [result] = await pool.query('UPDATE tipo_cita SET nombre= ?, descripcion= ? WHERE id = ?',[nombre, descripcion, id]);
+    const [result] = await pool.query('UPDATE tipo_cita SET nombre= ?, descripcion= ? WHERE id = ?',[nombre, descripcionTipoCita, id]);
 
     if (result.affectedRows === 0) {
         return null;
     }
 
-    return { id, nombre, descripcion};
+    return { id, nombre, descripcion: descripcionTipoCita};
 
 }
 

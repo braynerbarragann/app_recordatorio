@@ -1,5 +1,11 @@
 const Tipo_frecuenciaModel = require('../models/tipo_frecuencia.model');
 
+const faltanCampos = (body, camposRequeridos) => {
+    return camposRequeridos.some(campo =>
+        !Object.prototype.hasOwnProperty.call(body, campo)
+    );
+};
+
 const getAll = async (req, res) => {
     try {
         const resultado = await Tipo_frecuenciaModel.getAll();
@@ -50,7 +56,7 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
     try {
         const { nombre, descripcion } = req.body;
-        if (!nombre)
+        if (faltanCampos(req.body, ['nombre']) || !nombre)
             return res.status(400).json({ ok: false, msg: 'nombre requerido' });
       
         const nuevoTipofrecuencia =
@@ -76,7 +82,7 @@ const update = async (req, res) =>{
         const { id } = req.params;
         const { nombre, descripcion } = req.body
 
-        if (!nombre) {
+        if (faltanCampos(req.body, ['nombre', 'descripcion']) || !nombre) {
             return res.status(400).json({
                 ok: false,
                 msg: 'El nombre es obligatorio'

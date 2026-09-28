@@ -1,5 +1,11 @@
 const TipoDocumentoModel = require('../models/tipo_documento.model');
 
+const faltanCampos = (body, camposRequeridos) => {
+    return camposRequeridos.some(campo =>
+        !Object.prototype.hasOwnProperty.call(body, campo)
+    );
+};
+
 const getAll = async (req, res) => {
     try {
         const resultado = await TipoDocumentoModel.getAll();
@@ -50,8 +56,9 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
     try {
         const { nombre, abreviatura } = req.body;
-        if (!nombre)
-            return res.status(400).json({ ok: false, msg: 'nombre requerido' });
+        const camposRequeridos = ['nombre', 'abreviatura'];
+        if (faltanCampos(req.body, camposRequeridos) || !nombre || !abreviatura)
+            return res.status(400).json({ ok: false, msg: 'nombre y abreviatura son requeridos' });
       
         const nuevoTipoDocumento =
             await TipoDocumentoModel.create(nombre, abreviatura);
@@ -76,10 +83,11 @@ const update = async (req, res) =>{
         const { id } = req.params;
         const { nombre, abreviatura } = req.body
 
-        if (!nombre) {
+        const camposRequeridos = ['nombre', 'abreviatura'];
+        if (faltanCampos(req.body, camposRequeridos) || !nombre || !abreviatura) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El nombre es obligatorio'
+                msg: 'nombre y abreviatura son requeridos'
             });
         };
 
