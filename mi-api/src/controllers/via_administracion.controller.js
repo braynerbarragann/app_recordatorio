@@ -1,5 +1,11 @@
 const Via_AdministracionModel = require('../models/via_administracion.model');
 
+const faltanCampos = (body, camposRequeridos) => {
+    return camposRequeridos.some(campo =>
+        !Object.prototype.hasOwnProperty.call(body, campo)
+    );
+};
+
 const getAll = async (req, res) => {
     try {
         const resultado = await Via_AdministracionModel.getAll();
@@ -12,10 +18,7 @@ const getAll = async (req, res) => {
     } catch (error) {
         console.error(error);
 
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error al consultar via administracion'
-        });
+        return res.status(500).json({ ok: false, msg: error.message });
     }
 };
 
@@ -27,7 +30,7 @@ const getById = async (req, res) => {
         if (!item) {
             return res.status(404).json({
                 ok: false,
-                msg: 'via administracion no encontrado'
+                msg: 'Vía de administración no encontrada'
             });
         }
 
@@ -39,10 +42,7 @@ const getById = async (req, res) => {
     } catch (error) {
         console.error(error);
 
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error al consultar la via administracion'
-        });
+        return res.status(500).json({ ok: false, msg: error.message });
     }
 };
 
@@ -50,8 +50,8 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
     try {
         const { nombre, descripcion } = req.body;
-        if (!nombre)
-            return res.status(400).json({ ok: false, msg: 'nombre requerido' });
+        if (faltanCampos(req.body, ['nombre']) || !nombre)
+            return res.status(400).json({ ok: false, msg: 'nombre es requerido' });
       
         const nuevaViaAdministracion =
             await Via_AdministracionModel.create(nombre, descripcion);
@@ -64,10 +64,7 @@ const create = async (req, res) => {
     } catch (error) {
         console.error(error);
 
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error al crear la via administracion'
-        });
+        return res.status(500).json({ ok: false, msg: error.message });
     }
 };
 
@@ -76,10 +73,10 @@ const update = async (req, res) =>{
         const { id } = req.params;
         const { nombre, descripcion } = req.body
 
-        if (!nombre) {
+        if (faltanCampos(req.body, ['nombre', 'descripcion']) || !nombre) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El nombre es obligatorio'
+                msg: 'nombre es requerido y descripcion debe enviarse; puede ser null'
             });
         };
 
@@ -88,7 +85,7 @@ const update = async (req, res) =>{
         if (!updateViaAdministracion) {
             return res.status(404).json({
                 ok: false,
-                msg: 'via de administracion no encontrada'
+                msg: 'Vía de administración no encontrada'
             });
         };
 
@@ -100,10 +97,7 @@ const update = async (req, res) =>{
     } catch (error) {
         console.error(error);
 
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error al editar via administracion'
-        });
+        return res.status(500).json({ ok: false, msg: error.message });
     }
 };
 
@@ -127,10 +121,7 @@ const remove = async (req, res) => {
     } catch (error) {
         console.error(error);
 
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error al eliminar la vía de administración'
-        });
+        return res.status(500).json({ ok: false, msg: error.message });
     }
 };
 

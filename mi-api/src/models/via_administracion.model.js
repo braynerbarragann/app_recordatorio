@@ -18,23 +18,25 @@ const getById = async (id) => {
 };
 
 const create = async (nombre, descripcion) => {
-  
+    const descripcionVia = descripcion ?? null;
+
     const [result] = await pool.query(
         'INSERT INTO via_administracion (nombre, descripcion) VALUES (?, ?)',
-        [nombre, descripcion]
+        [nombre, descripcionVia]
     );
-    return { id: result.insertId, nombre, descripcion};
+    return { id: result.insertId, nombre, descripcion: descripcionVia};
 };
 
 const update = async (id, nombre, descripcion) => {
+    const descripcionVia = descripcion ?? null;
 
-    const [result] = await pool.query('UPDATE via_administracion SET nombre= ?, descripcion= ? WHERE id = ?',[nombre, descripcion, id]);
+    const [result] = await pool.query('UPDATE via_administracion SET nombre= ?, descripcion= ? WHERE id = ?',[nombre, descripcionVia, id]);
 
     if (result.affectedRows === 0) {
         return null;
     }
 
-    return { id, nombre, descripcion};
+    return { id, nombre, descripcion: descripcionVia};
 
 }
 
