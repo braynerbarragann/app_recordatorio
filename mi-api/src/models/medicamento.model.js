@@ -17,18 +17,41 @@ const getById = async (id) => {
     return rows[0];
 };
 
-const create = async (nombre, presentacion, concentracion, descripcion) => {
+const create = async (nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion) => {
   
     const [result] = await pool.query(
-        'INSERT INTO medicamento (nombre, presentacion, concentracion, descripcion) VALUES (?, ?, ?, ?)',
-        [nombre, presentacion, concentracion, descripcion]
+        'INSERT INTO medicamento (nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion) VALUES (?, ?, ?, ?, ?)',
+        [nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion]
     );
-    return { id: result.insertId, nombre, presentacion, concentracion, descripcion};
+    return { id: result.insertId, nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion};
 };
+const update = async (id, nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion) => {
 
+    const [result] = await pool.query('UPDATE medicamento SET nombre= ?, presentacion= ?, concentracion_valor= ?, concentracion_unidad= ?, descripcion= ? WHERE id = ?',[nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion, id]);
+
+    if (result.affectedRows === 0) {
+        return null;
+    }
+
+    return { id, nombre, presentacion, concentracion_valor, concentracion_unidad, descripcion};
+
+}
+
+const remove = async (id) => {
+
+    const [result] = await pool.query('DELETE FROM medicamento WHERE id = ?',[id]);
+
+    if (result.affectedRows === 0) {
+        return null;
+    }
+
+    return { id };
+}
 
 module.exports = {
     getAll,
     getById,
-    create
+    create,
+    update,
+    remove
 };

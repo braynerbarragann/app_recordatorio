@@ -1,0 +1,58 @@
+const pool = require('../config/db');
+
+const getAll = async () => {
+    const [rows] = await pool.query(
+        'SELECT * FROM tipo_documento'
+    );
+
+    return rows;
+};
+
+const getById = async (id) => {
+    const [rows] = await pool.query(
+        'SELECT * FROM tipo_documento WHERE id = ?',
+        [id]
+    );
+
+    return rows[0];
+};
+
+const create = async (nombre, abreviatura) => {
+  
+    const [result] = await pool.query(
+        'INSERT INTO tipo_documento (nombre, abreviatura) VALUES (?, ?)',
+        [nombre, abreviatura]
+    );
+    return { id: result.insertId, nombre, abreviatura};
+};
+
+const update = async (id, nombre, abreviatura) => {
+
+    const [result] = await pool.query('UPDATE tipo_documento SET nombre= ?, abreviatura= ? WHERE id = ?',[nombre, abreviatura, id]);
+
+    if (result.affectedRows === 0) {
+        return null;
+    }
+
+    return { id, nombre, abreviatura};
+
+}
+
+const remove = async (id) => {
+
+    const [result] = await pool.query('DELETE FROM tipo_documento WHERE id = ?',[id]);
+
+    if (result.affectedRows === 0) {
+        return null;
+    }
+
+    return { id };
+}
+
+module.exports = {
+    getAll,
+    getById,
+    create,
+    update,
+    remove
+};
