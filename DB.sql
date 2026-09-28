@@ -231,7 +231,7 @@ DROP TABLE IF EXISTS `paciente`;
 CREATE TABLE `paciente` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `tipo_documento_id` int unsigned NOT NULL,
-  `genero_id` int unsigned DEFAULT NULL,
+  `genero_id` int unsigned DEFAULT NOT NULL,
   `nombre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `numero_documento` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fecha_nacimiento` date DEFAULT NULL,

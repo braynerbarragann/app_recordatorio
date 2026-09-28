@@ -1,11 +1,17 @@
 let UsuarioModel = require('../models/usuario.model')
 
+const faltanCampos = (body, camposRequeridos) => {
+  return camposRequeridos.some(campo =>
+    !Object.prototype.hasOwnProperty.call(body, campo)
+  );
+};
+
 const getAll = async (req, res) => {
   try {
     const data = await UsuarioModel.getAll();
-    res.json({ ok: true, data });
+    return res.json({ ok: true, data });
   } catch (err) {
-    res.status(500).json({ ok: false, msg: err.message });
+    return res.status(500).json({ ok: false, msg: err.message });
   }
 };
 
@@ -15,7 +21,7 @@ const getById = async (req, res) => {
     if (!data) return res.status(404)
       .json({ ok: false, msg: 'Usuario no encontrado' });
     
-    res.json({ ok: true, data });
+    return res.json({ ok: true, data });
   } catch (err) {
     res.status(500).json({ ok: false, msg: err.message });
   }
@@ -25,12 +31,15 @@ const create = async (req, res) => {
   try {
     const { nombre, correo, telefono, contrasena_hash } = req.body;
 
-    if (!nombre || !correo || !contrasena_hash)
+    const camposRequeridos = ['nombre', 'correo', 'contrasena_hash'];
+    const faltaCampo = faltanCampos(req.body, camposRequeridos);
+
+    if (faltaCampo || !nombre || !correo || !contrasena_hash)
       return res.status(400).json({ ok: false, msg: 'nombre, correo y contraseña requeridos' });
 
     const data = await UsuarioModel.create(nombre, correo, telefono, contrasena_hash);
 
-    res.status(201).json({ ok: true, data });
+    return res.status(201).json({ ok: true, data });
 
   } catch (err) {
     res.status(500).json({ ok: false, msg: err.message });
@@ -42,10 +51,13 @@ const update = async (req, res) =>{
         const { id } = req.params;
         const { nombre, correo, telefono } = req.body
 
-        if (!nombre || !correo) {
+        const camposRequeridos = ['nombre', 'correo', 'telefono'];
+        const faltaCampo = faltanCampos(req.body, camposRequeridos);
+
+        if (faltaCampo || !nombre || !correo) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El nombre y correo es obligatorio'
+                msg: 'nombre y correo son requeridos; telefono puede ser null'
             });
         };
 

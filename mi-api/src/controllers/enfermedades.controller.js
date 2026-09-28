@@ -1,5 +1,11 @@
 const EnfermedadModel = require('../models/enfermedad.model')
 
+const faltanCampos = (body, camposRequeridos) => {
+    return camposRequeridos.some(campo =>
+        !Object.prototype.hasOwnProperty.call(body, campo)
+    );
+};
+
 const formatEnfermedad= (e) => ({
     id: e.id,
     tipo_enfermedad: {
@@ -34,7 +40,7 @@ const getById = async (req, res) => {
     
     const data = formatEnfermedad(enfermedadModel)
 
-    res.json({ ok: true, data });
+    return res.json({ ok: true, data });
   } catch (err) {
     res.status(500).json({ ok: false, msg: err.message });
   }
@@ -44,12 +50,15 @@ const create = async (req, res) => {
   try {
     const {tipo_enfermedad_id, nombre, descripcion, codigo_cie10 } = req.body;
 
-    if (!tipo_enfermedad_id || !nombre)
-        return res.status(400).json({ ok: false, msg: 'tipo enfermedad y nombre son  requeridos' });
+    const camposRequeridos = ['tipo_enfermedad_id', 'nombre'];
+    const faltaCampo = faltanCampos(req.body, camposRequeridos);
+
+    if (faltaCampo || tipo_enfermedad_id == null || !nombre)
+        return res.status(400).json({ ok: false, msg: 'tipo_enfermedad_id y nombre son requeridos' });
 
     const data = await EnfermedadModel.create(tipo_enfermedad_id, nombre, descripcion, codigo_cie10);
 
-    res.status(201).json({ ok: true, data });
+    return res.status(201).json({ ok: true, data });
 
   } catch (err) {
     res.status(500).json({ ok: false, msg: err.message });
@@ -61,15 +70,23 @@ const update = async (req, res) =>{
         const { id } = req.params;
         const { tipo_enfermedad_id, nombre, descripcion, codigo_cie10 } = req.body
 
-        if (!tipo_enfermedad_id || !nombre)
-        return res.status(400).json({ ok: false, msg: 'tipo enfermedad y nombre son  requeridos' });
+        const camposRequeridos = [
+            'tipo_enfermedad_id',
+            'nombre',
+            'descripcion',
+            'codigo_cie10'
+        ];
+        const faltaCampo = faltanCampos(req.body, camposRequeridos);
+
+        if (faltaCampo || tipo_enfermedad_id == null || !nombre)
+        return res.status(400).json({ ok: false, msg: 'Todos los campos de la enfermedad son requeridos; descripcion y codigo_cie10 pueden ser null' });
 
         const updateEnfermedad = await EnfermedadModel.update(id, tipo_enfermedad_id, nombre, descripcion, codigo_cie10);
 
         if (!updateEnfermedad) {
             return res.status(404).json({
                 ok: false,
-                msg: 'Paciente no encontrado'
+                msg: 'Enfermedad no encontrada'
             });
         };
 
@@ -81,10 +98,7 @@ const update = async (req, res) =>{
     } catch (error) {
         console.error(error);
 
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error al editar enfermedad'
-        });
+        return res.status(500).json({ ok: false, msg: error.message });
     }
 };
 
@@ -96,22 +110,19 @@ const remove = async (req, res) => {
         if (!resultado) {
             return res.status(404).json({
                 ok: false,
-                msg: 'Enfermedad no encontrado'
+                msg: 'Enfermedad no encontrada'
             });
         }
 
         return res.status(200).json({
             ok: true,
-            msg: 'Enfermedad eliminado correctamente'
+            msg: 'Enfermedad eliminada correctamente'
         });
 
     } catch (error) {
         console.error(error);
 
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error al eliminar enfermedad'
-        });
+        return res.status(500).json({ ok: false, msg: error.message });
     }
 };
 

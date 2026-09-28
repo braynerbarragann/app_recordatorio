@@ -24,22 +24,27 @@ const getById = async (id) => {
 };
 
 const create = async (tipo_enfermedad_id, nombre, descripcion, codigo_cie10) => {
+  const descripcionEnfermedad = descripcion ?? null;
+  const codigoCie10 = codigo_cie10 ?? null;
+
   const [result] = await pool.query(
     'INSERT INTO enfermedad (tipo_enfermedad_id, nombre, descripcion, codigo_cie10) VALUES (?, ?, ?, ?)',
-    [tipo_enfermedad_id, nombre, descripcion, codigo_cie10]
+    [tipo_enfermedad_id, nombre, descripcionEnfermedad, codigoCie10]
   );
-  return { id: result.insertId, tipo_enfermedad_id, nombre, descripcion, codigo_cie10};
+  return { id: result.insertId, tipo_enfermedad_id, nombre, descripcion: descripcionEnfermedad, codigo_cie10: codigoCie10};
 };
 
 const update = async (id, tipo_enfermedad_id, nombre, descripcion, codigo_cie10) => {
+    const descripcionEnfermedad = descripcion ?? null;
+    const codigoCie10 = codigo_cie10 ?? null;
 
-    const [result] = await pool.query('UPDATE enfermedad SET tipo_enfermedad_id= ?, nombre= ?, descripcion= ?, codigo_cie10= ? WHERE id = ?',[tipo_enfermedad_id, nombre, descripcion, codigo_cie10, id]);
+    const [result] = await pool.query('UPDATE enfermedad SET tipo_enfermedad_id= ?, nombre= ?, descripcion= ?, codigo_cie10= ? WHERE id = ?',[tipo_enfermedad_id, nombre, descripcionEnfermedad, codigoCie10, id]);
 
     if (result.affectedRows === 0) {
         return null;
     }
 
-    return {id, tipo_enfermedad_id, nombre, descripcion, codigo_cie10};
+    return {id, tipo_enfermedad_id, nombre, descripcion: descripcionEnfermedad, codigo_cie10: codigoCie10};
 
 }
 

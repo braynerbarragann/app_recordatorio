@@ -19,6 +19,12 @@ const formatPaciente = (p) => ({
     estado: p.estado
 });
 
+const faltanCampos = (body, camposRequeridos) => {
+    return camposRequeridos.some(campo =>
+        !Object.prototype.hasOwnProperty.call(body, campo)
+    );
+};
+
 const getAll = async (req, res) => {
   try {
     const dataModel = await PacienteModel.getAll();
@@ -41,9 +47,9 @@ const getById = async (req, res) => {
     
     const data = formatPaciente(pacienteModel)
 
-    res.json({ ok: true, data });
+    return res.json({ ok: true, data });
   } catch (err) {
-    res.status(500).json({ ok: false, msg: err.message });
+    return res.status(500).json({ ok: false, msg: err.message });
   }
 };
 
@@ -51,15 +57,23 @@ const create = async (req, res) => {
   try {
     const { tipo_documento_id, genero_id, nombre, numero_documento, fecha_nacimiento, direccion } = req.body;
 
-    if (!tipo_documento_id || !nombre || !numero_documento)
-        return res.status(400).json({ ok: false, msg: 'tipo documento, nombre y numero documento son  requeridos' });
+    const camposRequeridos = [
+        'tipo_documento_id',
+        'genero_id',
+        'nombre',
+        'numero_documento'
+    ];
+    const faltaCampo = faltanCampos(req.body, camposRequeridos);
+
+    if (faltaCampo || tipo_documento_id == null || genero_id == null || !nombre || !numero_documento)
+       return res.status(400).json({ ok: false, msg: 'nombre, numero de documento, tipo documento y genero son requeridos' });
 
     const data = await PacienteModel.create(tipo_documento_id, genero_id, nombre, numero_documento, fecha_nacimiento, direccion);
 
-    res.status(201).json({ ok: true, data });
+    return res.status(201).json({ ok: true, data });
 
   } catch (err) {
-    res.status(500).json({ ok: false, msg: err.message });
+    return res.status(500).json({ ok: false, msg: err.message });
   }
 };
 
@@ -68,8 +82,18 @@ const update = async (req, res) =>{
         const { id } = req.params;
         const { tipo_documento_id, genero_id, nombre, numero_documento, fecha_nacimiento, direccion } = req.body
 
-        if (!tipo_documento_id || !nombre || !numero_documento)
-        return res.status(400).json({ ok: false, msg: 'tipo documento, nombre y numero documento son  requeridos' });
+        const camposRequeridos = [
+            'tipo_documento_id',
+            'genero_id',
+            'nombre',
+            'numero_documento',
+            'fecha_nacimiento',
+            'direccion'
+        ];
+        const faltaCampo = faltanCampos(req.body, camposRequeridos);
+
+        if (faltaCampo || tipo_documento_id == null || genero_id == null || !nombre || !numero_documento)
+        return res.status(400).json({ ok: false, msg: 'Todos los campos del paciente son requeridos; fecha_nacimiento y direccion pueden ser null' });
 
         const updatePaciente = await PacienteModel.update(id, tipo_documento_id, genero_id, nombre, numero_documento, fecha_nacimiento, direccion);
 
@@ -85,12 +109,12 @@ const update = async (req, res) =>{
             data: updatePaciente
         });
 
-    } catch (error) {
-        console.error(error);
+    } catch (err) {
+        console.error(err);
 
         return res.status(500).json({
             ok: false,
-            msg: 'Error al editar paciente'
+            msg: err.message
         });
     }
 };
@@ -112,12 +136,12 @@ const remove = async (req, res) => {
             msg: 'Paciente eliminado correctamente'
         });
 
-    } catch (error) {
-        console.error(error);
+    } catch (err) {
+        console.error(err);
 
         return res.status(500).json({
             ok: false,
-            msg: 'Error al eliminar paciente'
+            msg: err.message
         });
     }
 };
