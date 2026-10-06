@@ -85,7 +85,7 @@ const update = async (req, res) =>{
         if (faltanCampos(req.body, ['nombre', 'descripcion']) || !nombre) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El nombre es obligatorio'
+                msg: 'Todos los campos son obligatorios; descripcion puede ser null'
             });
         };
 

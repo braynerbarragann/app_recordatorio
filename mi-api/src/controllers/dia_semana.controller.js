@@ -85,7 +85,7 @@ const update = async (req, res) =>{
         if (faltanCampos(req.body, ['nombre']) || !nombre) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El nombre es obligatorio'
+                msg: 'El nombre y id don requeridos'
             });
         };
 
@@ -94,7 +94,7 @@ const update = async (req, res) =>{
         if (!updatedia_semana) {
             return res.status(404).json({
                 ok: false,
-                msg: 'dia semana no encontrada'
+                msg: 'dia semana no encontrado'
             });
         };
 

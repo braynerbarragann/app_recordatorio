@@ -7,6 +7,23 @@ const getAll = async () => {
   return rows;
 };
 
+const getByMail = async (correo) => {
+    const [filas] = await pool.query(
+        `SELECT
+            id,
+            nombre,
+            correo,
+            telefono,
+            contrasena_hash,
+            estado
+         FROM usuario
+         WHERE correo = ?`,
+        [correo]
+    );
+
+    return filas[0];
+};
+
 const getById = async (id) => {
   const [rows] = await pool.query(
     'SELECT id, nombre, correo, telefono, fecha_registro, estado, ultimo_acceso FROM usuario WHERE id = ?', [id]
@@ -49,4 +66,4 @@ const remove = async (id) => {
 }
 
 
-module.exports = {getAll, getById, create, update, remove};
+module.exports = {getAll, getById, create, update, remove, getByMail};

@@ -1,31 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('../controllers/usuarios.controller');
-const tratamientosCtrl = require('../controllers/tratamientos.controller');
-const tratamientos_medCtrl = require('../controllers/tratamientos_medicamentos.controller');
-const citasCtrl =  require('../controllers/citas.controller');
-const tomasCtrl = require('../controllers/tomas_medicamentos.controller');
+const ctrlUsuario = require('../controllers/usuarios.controller');
+const ctrlUsuarioPaciente = require('../controllers/usuario_pacientes.controller');
+const { verificarToken } = require('../middlewares/auth.middleware');
 
 
-router.get('/', ctrl.getAll);
-router.get('/:id', ctrl.getById);
-router.post('/', ctrl.create);
-router.put('/:id', ctrl.update);
-router.delete('/:id', ctrl.remove);
 
-router.get('/:usuarioId/tratamientos', tratamientosCtrl.getAllByUsuarioId);
-router.get('/:usuarioId/tratamientos/:id', tratamientosCtrl.getById);
-router.post('/:usuarioId/tratamientos/', tratamientosCtrl.create);
+router.get('/', ctrlUsuario.getAll);
+router.get('/me', verificarToken, ctrlUsuario.getById);
 
-router.get('/:usuarioId/tratamientos/:tratamientoId/medicamentos', tratamientos_medCtrl.getAll);
-router.get('/:usuarioId/tratamientos/:tratamientoId/medicamentos/:traMedicaID', tratamientos_medCtrl.getById);
+router.put('/:id', ctrlUsuario.update);
+router.delete('/:id', ctrlUsuario.remove);
 
-router.get('/:usuarioId/tratamientos/:tratamientoId/medicamentos/:traMedicaID/tomas', tomasCtrl.getAll);
-router.get('/:usuarioId/tratamientos/:tratamientoId/medicamentos/:traMedicaID/tomas/:tomaId', tomasCtrl.getById);
+router.get('/:usuarioId/pacientes', verificarToken, ctrlUsuarioPaciente.getAllByUsuarioId);
+router.get('/:usuarioId/pacientes/:pacienteId', ctrlUsuarioPaciente.getById);
+router.post('/:usuarioId/pacientes', ctrlUsuarioPaciente.create);
+router.put('/:usuarioId/pacientes/:pacienteId', ctrlUsuarioPaciente.update);
+router.delete('/:usuarioId/pacientes/:pacienteId', ctrlUsuarioPaciente.remove);
 
-router.get('/:usuarioId/citas', citasCtrl.getAllByUsuarioId);
-router.get('/:usuarioId/citas/:id', citasCtrl.getById);
-router.post('/:usuarioId/citas/', citasCtrl.create);
+
 
 
 module.exports = router;
