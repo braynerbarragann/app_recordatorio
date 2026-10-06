@@ -12,9 +12,9 @@ router.get('/me', verificarToken, ctrlUsuario.getById);
 router.put('/:id', ctrlUsuario.update);
 router.delete('/:id', ctrlUsuario.remove);
 
-router.get('/:usuarioId/pacientes', verificarToken, ctrlUsuarioPaciente.getAllByUsuarioId);
+router.get('/me/pacientes', verificarToken, ctrlUsuarioPaciente.getAllByUsuarioId);
 router.get('/:usuarioId/pacientes/:pacienteId', ctrlUsuarioPaciente.getById);
-router.post('/:usuarioId/pacientes', ctrlUsuarioPaciente.create);
+router.post('/me/pacientes', verificarToken, ctrlUsuarioPaciente.create);
 router.put('/:usuarioId/pacientes/:pacienteId', ctrlUsuarioPaciente.update);
 router.delete('/:usuarioId/pacientes/:pacienteId', ctrlUsuarioPaciente.remove);
 

@@ -72,7 +72,7 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
     try {
         const { paciente_id, tipo_relacion_id } = req.body;
-        const usuarioId = req.params.usuarioId;
+        const usuarioId = req.usuario.usuario_id;
 
         const camposRequeridos = ['paciente_id','tipo_relacion_id'];
 

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('../controllers/usuarios.controller');
 const pacientesCtrl = require('../controllers/pacientes.controller')
 const tratamientosCtrl = require('../controllers/tratamientos.controller');
 const tratamientos_medCtrl = require('../controllers/tratamientos_medicamentos.controller');
