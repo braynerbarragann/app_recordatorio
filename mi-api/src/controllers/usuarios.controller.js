@@ -33,7 +33,7 @@ const getById = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const { id } = req.params;
+    const usuarioId = req.usuario.usuario_id;
     const { nombre, correo, telefono } = req.body
 
     const camposRequeridos = ['nombre', 'correo', 'telefono'];
@@ -46,7 +46,7 @@ const update = async (req, res) => {
       });
     };
 
-    const updateUsuario = await UsuarioModel.update(id, nombre, correo, telefono);
+    const updateUsuario = await UsuarioModel.update(usuarioId, nombre, correo, telefono);
 
     if (!updateUsuario) {
       return res.status(404).json({
@@ -72,8 +72,8 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   try {
-    const resultado =
-      await UsuarioModel.remove(req.params.id);
+    const usuarioId = req.usuario.usuario_id;
+    const resultado = await UsuarioModel.remove(usuarioId);
 
     if (!resultado) {
       return res.status(404).json({

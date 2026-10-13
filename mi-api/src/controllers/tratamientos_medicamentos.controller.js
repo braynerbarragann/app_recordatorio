@@ -1,4 +1,5 @@
 const tratamientoMedicamentoModel = require('../models/tratamiento_medicamento.model');
+const UsuarioPacienteModel = require('../models/usuario_paciente.model');
 
 const faltanCampos = (body, camposRequeridos) => {
     return camposRequeridos.some(campo =>
@@ -45,7 +46,16 @@ const formatTratamientoMedicamento = (tm) => ({
     fecha_fin: tm.fecha_fin
 });
 
-const validarTratamientoPadre = async (pacienteId, tratamientoId, res) => {
+const validarTratamientoPadre = async (req, res) => {
+    const { pacienteId, tratamientoId } = req.params;
+    const usuarioId = req.usuario.usuario_id;
+    const relacion = await UsuarioPacienteModel.getById(usuarioId, pacienteId);
+
+    if (!relacion) {
+        res.status(404).json({ ok: false, msg: 'Relacion no encontrada' });
+        return false;
+    }
+
     if (!await tratamientoMedicamentoModel.tratamientoPerteneceAlPaciente(tratamientoId, pacienteId)) {
         res.status(404).json({ ok: false, msg: 'Tratamiento no encontrado para este paciente' });
         return false;
@@ -60,7 +70,7 @@ const getAll = async (req, res) => {
         if (!pacienteId || !tratamientoId) {
             return res.status(400).json({ ok: false, msg: 'pacienteId y tratamientoId son requeridos' });
         }
-        if (!await validarTratamientoPadre(pacienteId, tratamientoId, res)) return;
+        if (!await validarTratamientoPadre(req, res)) return;
 
         const dataModel = await tratamientoMedicamentoModel.getAllByTratamientoId(tratamientoId, pacienteId);
         const data = dataModel.map(formatTratamientoMedicamento);
@@ -77,7 +87,7 @@ const getById = async (req, res) => {
         if (!pacienteId || !tratamientoId || !tratamientoMedicamentoId) {
             return res.status(400).json({ ok: false, msg: 'Los identificadores de la ruta son requeridos' });
         }
-        if (!await validarTratamientoPadre(pacienteId, tratamientoId, res)) return;
+        if (!await validarTratamientoPadre(req, res)) return;
 
         const dataModel = await tratamientoMedicamentoModel.getById(
             tratamientoMedicamentoId,
@@ -137,7 +147,7 @@ const create = async (req, res) => {
                 msg: 'Envíe los campos requeridos con valores válidos; instruccion, intervalo_horas y fecha_fin pueden ser null'
             });
         }
-        if (!await validarTratamientoPadre(pacienteId, tratamientoId, res)) return;
+        if (!await validarTratamientoPadre(req, res)) return;
 
         const dataModel = await tratamientoMedicamentoModel.create(
             tratamientoId,
@@ -206,7 +216,7 @@ const update = async (req, res) => {
                 msg: 'Envíe todos los campos con valores válidos; instruccion, intervalo_horas y fecha_fin pueden ser null'
             });
         }
-        if (!await validarTratamientoPadre(pacienteId, tratamientoId, res)) return;
+        if (!await validarTratamientoPadre(req, res)) return;
 
         const dataModel = await tratamientoMedicamentoModel.update(
             tratamientoMedicamentoId,
@@ -238,7 +248,7 @@ const remove = async (req, res) => {
         if (!esIdValido(pacienteId) || !esIdValido(tratamientoId) || !esIdValido(tratamientoMedicamentoId)) {
             return res.status(400).json({ ok: false, msg: 'Los identificadores de la ruta deben ser válidos' });
         }
-        if (!await validarTratamientoPadre(pacienteId, tratamientoId, res)) return;
+        if (!await validarTratamientoPadre(req, res)) return;
 
         const resultado = await tratamientoMedicamentoModel.remove(
             tratamientoMedicamentoId,

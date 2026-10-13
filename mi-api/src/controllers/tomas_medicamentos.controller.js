@@ -1,4 +1,5 @@
 const TomaMedicamentoModel = require('../models/toma_medicamento.model');
+const UsuarioPacienteModel = require('../models/usuario_paciente.model');
 
 const estadosValidos = ['PENDIENTE', 'TOMADA', 'OMITIDA', 'VENCIDA'];
 
@@ -49,6 +50,13 @@ const validarTratamientoMedicamento = async (req, res) => {
         || !esIdValido(tratamientoId)
         || !esIdValido(tratamientoMedicamentoId)) {
         res.status(400).json({ ok: false, msg: 'Los identificadores de la ruta deben ser válidos' });
+        return false;
+    }
+
+    const usuarioId = req.usuario.usuario_id;
+    const relacion = await UsuarioPacienteModel.getById(usuarioId, pacienteId);
+    if (!relacion) {
+        res.status(404).json({ ok: false, msg: 'Relacion no encontrada' });
         return false;
     }
 

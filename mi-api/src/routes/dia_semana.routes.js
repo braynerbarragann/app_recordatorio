@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const ctrl = require('../controllers/dia_semana.controller');
+const { verificarToken } = require('../middlewares/auth.middleware');
+
+router.use(verificarToken);
 
 router.get('/', ctrl.getAll);
 router.get('/:id', ctrl.getById);

@@ -1,4 +1,18 @@
 const TratamientoModel = require('../models/tratamiento.model');
+const UsuarioPacienteModel = require('../models/usuario_paciente.model');
+
+const validarRelacionPaciente = async (req, res) => {
+    const usuarioId = req.usuario.usuario_id;
+    const pacienteId = req.params.pacienteId;
+    const relacion = await UsuarioPacienteModel.getById(usuarioId, pacienteId);
+
+    if (!relacion) {
+        res.status(404).json({ ok: false, msg: 'Relacion no encontrada' });
+        return false;
+    }
+
+    return true;
+};
 
 const faltanCampos = (body, camposRequeridos) => {
     return camposRequeridos.some(campo =>
@@ -37,6 +51,8 @@ const formatTratamiento = (t) => ({
 
 const getAllByPacienteId = async (req, res) => {
     try {
+        if (!await validarRelacionPaciente(req, res)) return;
+
         const dataModel = await TratamientoModel.getAllByPacienteId(req.params.pacienteId);
         const data = dataModel.map(formatTratamiento);
 
@@ -48,6 +64,8 @@ const getAllByPacienteId = async (req, res) => {
 
 const getById = async (req, res) => {
     try {
+        if (!await validarRelacionPaciente(req, res)) return;
+
         const dataModel = await TratamientoModel.getById(req.params.id, req.params.pacienteId);
         if (!dataModel) {
             return res.status(404).json({ ok: false, msg: 'Tratamiento no encontrado' });
@@ -61,6 +79,8 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
+        if (!await validarRelacionPaciente(req, res)) return;
+
         const { diagnostico_id, nombre, descripcion } = req.body;
         const pacienteId = req.params.pacienteId;
         const camposRequeridos = ['nombre'];
@@ -95,6 +115,8 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
+        if (!await validarRelacionPaciente(req, res)) return;
+
         const { pacienteId, id } = req.params;
         const { diagnostico_id, nombre, descripcion } = req.body;
         const camposRequeridos = ['diagnostico_id', 'nombre', 'descripcion'];
@@ -134,6 +156,8 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
+        if (!await validarRelacionPaciente(req, res)) return;
+
         const resultado = await TratamientoModel.remove(req.params.id, req.params.pacienteId);
         if (!resultado) {
             return res.status(404).json({ ok: false, msg: 'Tratamiento no encontrado' });

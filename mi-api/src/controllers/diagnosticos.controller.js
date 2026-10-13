@@ -1,6 +1,20 @@
 const DiagnosticoModel = require('../models/diagnostico.model');
+const UsuarioPacienteModel = require('../models/usuario_paciente.model');
 
 const estadosValidos = ['ACTIVO', 'RESUELTO', 'INACTIVO'];
+
+const validarRelacionPaciente = async (req, res) => {
+    const usuarioId = req.usuario.usuario_id;
+    const pacienteId = req.params.pacienteId;
+    const relacion = await UsuarioPacienteModel.getById(usuarioId, pacienteId);
+
+    if (!relacion) {
+        res.status(404).json({ ok: false, msg: 'Relacion no encontrada' });
+        return false;
+    }
+
+    return true;
+};
 
 const faltanCampos = (body, camposRequeridos) => {
     return camposRequeridos.some(campo =>
@@ -34,7 +48,10 @@ const formatDiagnostico = (d) => ({
 
 const getAllByPacienteId = async (req, res) => {
     try {
-        const dataModel = await DiagnosticoModel.getAllByPacienteId(req.params.pacienteId);
+        const pacienteId = req.params.pacienteId;
+        if (!await validarRelacionPaciente(req, res)) return;
+
+        const dataModel = await DiagnosticoModel.getAllByPacienteId(pacienteId);
         const data = dataModel.map(formatDiagnostico);
 
         return res.json({ ok: true, data });
@@ -45,7 +62,10 @@ const getAllByPacienteId = async (req, res) => {
 
 const getById = async (req, res) => {
     try {
-        const dataModel = await DiagnosticoModel.getById(req.params.id, req.params.pacienteId);
+        const pacienteId = req.params.pacienteId;
+        if (!await validarRelacionPaciente(req, res)) return;
+
+        const dataModel = await DiagnosticoModel.getById(req.params.id, pacienteId);
         if (!dataModel) {
             return res.status(404).json({ ok: false, msg: 'Diagnóstico no encontrado' });
         }
@@ -58,6 +78,8 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
+        if (!await validarRelacionPaciente(req, res)) return;
+
         const { enfermedad_id, cita_id, fecha_diagnostico, observaciones } = req.body;
         const pacienteId = req.params.pacienteId;
         const camposRequeridos = ['enfermedad_id'];
@@ -92,6 +114,8 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
+        if (!await validarRelacionPaciente(req, res)) return;
+
         const { pacienteId, id } = req.params;
         const { enfermedad_id, cita_id, fecha_diagnostico, observaciones, estado } = req.body;
         const camposRequeridos = [
@@ -142,6 +166,8 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
+        if (!await validarRelacionPaciente(req, res)) return;
+
         const resultado = await DiagnosticoModel.remove(req.params.id, req.params.pacienteId);
         if (!resultado) {
             return res.status(404).json({ ok: false, msg: 'Diagnóstico no encontrado' });

@@ -15,41 +15,46 @@ router.post('/', verificarToken, pacientesCtrl.create);
 router.put('/:id', verificarToken, pacientesCtrl.update);
 
 router.get('/:pacienteId/citas', verificarToken, citasCtrl.getAllByPacienteId);
-router.get('/:pacienteId/citas/:id', citasCtrl.getById);
-router.post('/:pacienteId/citas', citasCtrl.create);
-router.put('/:pacienteId/citas/:id', citasCtrl.update);
-router.delete('/:pacienteId/citas/:id', citasCtrl.remove);
+router.get('/:pacienteId/citas/:id', verificarToken, citasCtrl.getById);
+router.post('/:pacienteId/citas', verificarToken, citasCtrl.create);
+router.put('/:pacienteId/citas/:id', verificarToken, citasCtrl.update);
+router.delete('/:pacienteId/citas/:id', verificarToken, citasCtrl.remove);
 
-router.get('/:pacienteId/diagnosticos', diagnosticosCtrl.getAllByPacienteId);
-router.get('/:pacienteId/diagnosticos/:id', diagnosticosCtrl.getById);
-router.post('/:pacienteId/diagnosticos', diagnosticosCtrl.create);
-router.put('/:pacienteId/diagnosticos/:id', diagnosticosCtrl.update);
-router.delete('/:pacienteId/diagnosticos/:id', diagnosticosCtrl.remove);
+router.get('/:pacienteId/diagnosticos', verificarToken, diagnosticosCtrl.getAllByPacienteId);
+router.get('/:pacienteId/diagnosticos/:id', verificarToken, diagnosticosCtrl.getById);
+router.post('/:pacienteId/diagnosticos', verificarToken, diagnosticosCtrl.create);
+router.put('/:pacienteId/diagnosticos/:id', verificarToken, diagnosticosCtrl.update);
+router.delete('/:pacienteId/diagnosticos/:id', verificarToken, diagnosticosCtrl.remove);
 
-router.get('/:pacienteId/tratamientos', tratamientosCtrl.getAllByPacienteId);
-router.get('/:pacienteId/tratamientos/:id', tratamientosCtrl.getById);
-router.post('/:pacienteId/tratamientos', tratamientosCtrl.create);
-router.put('/:pacienteId/tratamientos/:id', tratamientosCtrl.update);
-router.delete('/:pacienteId/tratamientos/:id', tratamientosCtrl.remove);
+router.get('/:pacienteId/tratamientos', verificarToken, tratamientosCtrl.getAllByPacienteId);
+router.get('/:pacienteId/tratamientos/:id', verificarToken, tratamientosCtrl.getById);
+router.post('/:pacienteId/tratamientos', verificarToken, tratamientosCtrl.create);
+router.put('/:pacienteId/tratamientos/:id', verificarToken, tratamientosCtrl.update);
+router.delete('/:pacienteId/tratamientos/:id', verificarToken, tratamientosCtrl.remove);
 
 router.get(
     '/:pacienteId/tratamientos/:tratamientoId/medicamentos',
+    verificarToken,
     tratamientos_medCtrl.getAll
 );
 router.get(
     '/:pacienteId/tratamientos/:tratamientoId/medicamentos/:tratamientoMedicamentoId',
+    verificarToken,
     tratamientos_medCtrl.getById
 );
 router.post(
     '/:pacienteId/tratamientos/:tratamientoId/medicamentos',
+    verificarToken,
     tratamientos_medCtrl.create
 );
 router.put(
     '/:pacienteId/tratamientos/:tratamientoId/medicamentos/:tratamientoMedicamentoId',
+    verificarToken,
     tratamientos_medCtrl.update
 );
 router.delete(
     '/:pacienteId/tratamientos/:tratamientoId/medicamentos/:tratamientoMedicamentoId',
+    verificarToken,
     tratamientos_medCtrl.remove
 );
 
@@ -57,22 +62,27 @@ router.delete(
 
 router.get(
     '/:pacienteId/tratamientos/:tratamientoId/medicamentos/:tratamientoMedicamentoId/tomas',
+    verificarToken,
     tomasCtrl.getAll
 );
 router.get(
     '/:pacienteId/tratamientos/:tratamientoId/medicamentos/:tratamientoMedicamentoId/tomas/:tomaId',
+    verificarToken,
     tomasCtrl.getById
 );
 router.post(
     '/:pacienteId/tratamientos/:tratamientoId/medicamentos/:tratamientoMedicamentoId/tomas',
+    verificarToken,
     tomasCtrl.create
 );
 router.put(
     '/:pacienteId/tratamientos/:tratamientoId/medicamentos/:tratamientoMedicamentoId/tomas/:tomaId',
+    verificarToken,
     tomasCtrl.update
 );
 router.delete(
     '/:pacienteId/tratamientos/:tratamientoId/medicamentos/:tratamientoMedicamentoId/tomas/:tomaId',
+    verificarToken,
     tomasCtrl.remove
 );
 
