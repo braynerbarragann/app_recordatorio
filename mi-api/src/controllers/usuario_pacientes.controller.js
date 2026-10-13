@@ -41,105 +41,211 @@ const faltanCampos = (body, camposRequeridos) => {
 const getAllByUsuarioId = async (req, res) => {
     try {
         const usuarioId = req.usuario.usuario_id;
-        const dataModel = await usuarioPacienteModel.getAllByUsuarioId(usuarioId);
+
+        const dataModel =
+            await usuarioPacienteModel.getAllByUsuarioId(usuarioId);
+
         const data = dataModel.map(formatUsuarioPaciente);
 
-        return res.json({ ok: true, data });
+        return res.json({
+            ok: true,
+            data
+        });
+
     } catch (err) {
+        console.error(err);
 
-        return res.status(500).json({ ok: false, msg: err.message });
-
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error interno del servidor'
+        });
     }
 };
 
 const getById = async (req, res) => {
     try {
-        const dataModel = await usuarioPacienteModel.getById(req.params.usuarioId, req.params.pacienteId);
-        if (!dataModel) {
-            return res.status(404).json({ ok: false, msg: 'Relacion no encontrada' });
+        const { usuarioId, pacienteId } = req.params;
+
+        // Verificar que el usuario de la URL
+        // sea el mismo usuario autenticado
+        if (Number(usuarioId) !== Number(req.usuario.usuario_id)) {
+            return res.status(403).json({
+                ok: false,
+                msg: 'No tienes permiso para acceder a esta relación'
+            });
         }
 
-        const data = formatUsuarioPaciente(dataModel)
+        const dataModel =
+            await usuarioPacienteModel.getById(
+                usuarioId,
+                pacienteId
+            );
 
-        return res.json({ ok: true, data });
+        if (!dataModel) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Relación no encontrada'
+            });
+        }
+
+        const data = formatUsuarioPaciente(dataModel);
+
+        return res.json({
+            ok: true,
+            data
+        });
+
     } catch (err) {
+        console.error(err);
 
-        return res.status(500).json({ ok: false, msg: err.message });
-
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error interno del servidor'
+        });
     }
 };
 
 const create = async (req, res) => {
     try {
         const { paciente_id, tipo_relacion_id } = req.body;
+
         const usuarioId = req.usuario.usuario_id;
 
-        const camposRequeridos = ['paciente_id','tipo_relacion_id'];
+        const camposRequeridos = [
+            'paciente_id',
+            'tipo_relacion_id'
+        ];
 
-        if (faltanCampos(req.body, camposRequeridos) || !paciente_id || !usuarioId || !tipo_relacion_id) {
+        if (
+            faltanCampos(req.body, camposRequeridos) ||
+            !paciente_id ||
+            !usuarioId ||
+            !tipo_relacion_id
+        ) {
             return res.status(400).json({
                 ok: false,
-                msg: 'tipo_relacion_id, usuario_id y paciente_id son requeridos.'
+                msg: 'tipo_relacion_id y paciente_id son requeridos'
             });
         }
 
-        const data = await usuarioPacienteModel.create(usuarioId, paciente_id,tipo_relacion_id);
-        return res.status(201).json({ ok: true, data });
+        const data = await usuarioPacienteModel.create(
+            usuarioId,
+            paciente_id,
+            tipo_relacion_id
+        );
+
+        return res.status(201).json({
+            ok: true,
+            data
+        });
+
     } catch (err) {
+        console.error(err);
 
-        return res.status(500).json({ ok: false, msg: err.message });
-
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error interno del servidor'
+        });
     }
 };
 
 const update = async (req, res) => {
     try {
         const { usuarioId, pacienteId } = req.params;
-        const {tipo_relacion_id, estado} = req.body;
-        const camposRequeridos = ["tipo_relacion_id", "estado"];
+        const { tipo_relacion_id, estado } = req.body;
 
-        if (faltanCampos(req.body, camposRequeridos)
-            || !pacienteId || !usuarioId
-            || !tipo_relacion_id || !estadosValidos.includes(estado)) {
+        if (Number(usuarioId) !== Number(req.usuario.usuario_id)) {
+            return res.status(403).json({
+                ok: false,
+                msg: 'No tienes permiso para modificar esta relación'
+            });
+        }
+
+        const camposRequeridos = [
+            'tipo_relacion_id',
+            'estado'
+        ];
+
+        if (
+            faltanCampos(req.body, camposRequeridos) ||
+            !pacienteId ||
+            !usuarioId ||
+            !tipo_relacion_id ||
+            !estadosValidos.includes(estado)
+        ) {
             return res.status(400).json({
                 ok: false,
                 msg: 'tipo_relacion_id es requerido y estado debe ser ACTIVO o INACTIVO'
             });
         }
 
-        const data = await usuarioPacienteModel.update(usuarioId, pacienteId, tipo_relacion_id, estado);
+        const data = await usuarioPacienteModel.update(
+            usuarioId,
+            pacienteId,
+            tipo_relacion_id,
+            estado
+        );
+
         if (!data) {
-            return res.status(404).json({ ok: false, msg: 'Relacion no encontrada' });
+            return res.status(404).json({
+                ok: false,
+                msg: 'Relación no encontrada'
+            });
         }
 
-        return res.json({ ok: true, data });
+        return res.json({
+            ok: true,
+            data
+        });
+
     } catch (err) {
+        console.error(err);
 
-        return res.status(500).json({ ok: false, msg: err.message });
-
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error interno del servidor'
+        });
     }
 };
 
 const remove = async (req, res) => {
-
     try {
-        const resultado = await usuarioPacienteModel.remove(req.params.usuarioId, req.params.pacienteId);
-        if (!resultado) {
-            return res.status(404).json({ ok: false, msg: 'Relacion no encontrada' });
+        const { usuarioId, pacienteId } = req.params;
+
+        if (Number(usuarioId) !== Number(req.usuario.usuario_id)) {
+            return res.status(403).json({
+                ok: false,
+                msg: 'No tienes permiso para eliminar esta relación'
+            });
         }
 
-        return res.json({ ok: true, msg: 'Relacion eliminada correctamente' });
+        const resultado = await usuarioPacienteModel.remove(
+            usuarioId,
+            pacienteId
+        );
+
+        if (!resultado) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Relación no encontrada'
+            });
+        }
+
+        return res.json({
+            ok: true,
+            msg: 'Relación eliminada correctamente'
+        });
+
     } catch (err) {
+        console.error(err);
 
-        return res.status(500).json({ ok: false, msg: err.message });
-
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error interno del servidor'
+        });
     }
 };
 
-module.exports = {
-    getAllByUsuarioId,
-    getById,
-    create,
-    update,
-    remove
-};
+
+module.exports = 
+{getAllByUsuarioId, getById, create, update, remove};

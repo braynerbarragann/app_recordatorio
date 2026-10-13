@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 
 // Middleware para parsear JSON
-// Middleware para parsear JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -27,7 +26,6 @@ app.use((req, res, next) => {
 
 const authRoutes = require('./routes/auth.routes');
 app.use('/api/auth', authRoutes);
-
 
 const usuariosRouter = require('./routes/usuarios.routes');
 app.use('/api/usuarios', usuariosRouter);
