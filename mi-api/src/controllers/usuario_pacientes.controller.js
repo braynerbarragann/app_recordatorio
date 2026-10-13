@@ -64,16 +64,9 @@ const getAllByUsuarioId = async (req, res) => {
 
 const getById = async (req, res) => {
     try {
-        const { usuarioId, pacienteId } = req.params;
+        const usuarioId = req.usuario.usuario_id;
+        const pacienteId= req.params.pacienteId;
 
-        // Verificar que el usuario de la URL
-        // sea el mismo usuario autenticado
-        if (Number(usuarioId) !== Number(req.usuario.usuario_id)) {
-            return res.status(403).json({
-                ok: false,
-                msg: 'No tienes permiso para acceder a esta relación'
-            });
-        }
 
         const dataModel =
             await usuarioPacienteModel.getById(
@@ -151,15 +144,11 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const { usuarioId, pacienteId } = req.params;
+        const usuarioId = req.usuario.usuario_id;
+        const pacienteId= req.params.pacienteId;
+
         const { tipo_relacion_id, estado } = req.body;
 
-        if (Number(usuarioId) !== Number(req.usuario.usuario_id)) {
-            return res.status(403).json({
-                ok: false,
-                msg: 'No tienes permiso para modificar esta relación'
-            });
-        }
 
         const camposRequeridos = [
             'tipo_relacion_id',
@@ -210,7 +199,8 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        const { usuarioId, pacienteId } = req.params;
+        const usuarioId = req.usuario.usuario_id;
+        const pacienteId= req.params.pacienteId;
 
         if (Number(usuarioId) !== Number(req.usuario.usuario_id)) {
             return res.status(403).json({

@@ -1,11 +1,12 @@
 const CitaModel = require('../models/cita.model');
+const UsuarioPacienteModel = require('../models/usuario_paciente.model');
 
 const formatCita = (c) => ({
     "id": c.id,
     "tipo_cita": {
-      "id": c.tipo_cita_id,
-      "nombre": c.tipo_cita_nombre,
-      "descripcion": c.tipo_cita_descripcion
+        "id": c.tipo_cita_id,
+        "nombre": c.tipo_cita_nombre,
+        "descripcion": c.tipo_cita_descripcion
     },
     "descripcion": c.descripcion,
     "fecha_hora": c.fecha_hora,
@@ -20,7 +21,19 @@ const faltanCampos = (body, camposRequeridos) => {
 
 const getAllByPacienteId = async (req, res) => {
     try {
-        const dataModel = await CitaModel.getAllByPacienteId(req.params.pacienteId);
+        const usuarioId = req.usuario.usuario_id;
+        const pacienteId = req.params.pacienteId;
+
+        const dataModelVeridicar = await UsuarioPacienteModel.getById(usuarioId, pacienteId);
+        if (!dataModelVeridicar) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Relacion no encontrada'
+            });
+        }
+
+        
+        const dataModel = await CitaModel.getAllByPacienteId(pacienteId);
         const data = dataModel.map(formatCita);
 
         return res.json({ ok: true, data });
@@ -33,7 +46,19 @@ const getAllByPacienteId = async (req, res) => {
 
 const getById = async (req, res) => {
     try {
-        const dataModel = await CitaModel.getById(req.params.id, req.params.pacienteId);
+
+        const usuarioId = req.usuario.usuario_id;
+        const pacienteId = req.params.pacienteId;
+
+        const dataModelVeridicar = await UsuarioPacienteModel.getById(usuarioId, pacienteId);
+        if (!dataModelVeridicar) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Relacion no encontrada'
+            });
+        }
+
+        const dataModel = await CitaModel.getById(req.params.id, pacienteId);
         if (!dataModel) {
             return res.status(404).json({ ok: false, msg: 'Cita no encontrada' });
         }
@@ -50,8 +75,17 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const { tipo_cita_id, descripcion, fecha_hora } = req.body;
+        const usuarioId = req.usuario.usuario_id;
         const pacienteId = req.params.pacienteId;
+        const dataModelVeridicar = await UsuarioPacienteModel.getById(usuarioId, pacienteId);
+        if (!dataModelVeridicar) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Relacion no encontrada'
+            });
+        }
+
+        const { tipo_cita_id, descripcion, fecha_hora } = req.body;
         const camposRequeridos = ['tipo_cita_id', 'fecha_hora'];
 
         if (faltanCampos(req.body, camposRequeridos) || !pacienteId || !tipo_cita_id || !fecha_hora) {
@@ -72,7 +106,17 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
+        const usuarioId = req.usuario.usuario_id;
         const { pacienteId, id } = req.params;
+        const dataModelVeridicar = await UsuarioPacienteModel.getById(usuarioId, pacienteId);
+        if (!dataModelVeridicar) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Relacion no encontrada'
+            });
+        }
+
+
         const { tipo_cita_id, descripcion, fecha_hora } = req.body;
         const camposRequeridos = ['tipo_cita_id', 'descripcion', 'fecha_hora'];
 
@@ -102,7 +146,19 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        const resultado = await CitaModel.remove(req.params.id, req.params.pacienteId);
+
+        const usuarioId = req.usuario.usuario_id;
+        const pacienteId = req.params.pacienteId;
+        const dataModelVeridicar = await UsuarioPacienteModel.getById(usuarioId, pacienteId);
+        if (!dataModelVeridicar) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Relacion no encontrada'
+            });
+        }
+
+
+        const resultado = await CitaModel.remove(req.params.id, pacienteId);
         if (!resultado) {
             return res.status(404).json({ ok: false, msg: 'Cita no encontrada' });
         }
