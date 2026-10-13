@@ -6,8 +6,8 @@ const { verificarToken } = require('../middlewares/auth.middleware');
 
 router.get('/', ctrlUsuario.getAll);
 router.get('/me', verificarToken, ctrlUsuario.getById);
-router.put('/:id', verificarToken, ctrlUsuario.update);
-router.delete('/:id', verificarToken, ctrlUsuario.remove);
+router.put('/', verificarToken, ctrlUsuario.update);
+router.delete('/', verificarToken, ctrlUsuario.remove);
 
 // Obtener todos los pacientes del usuario autenticado
 router.get('/me/pacientes', verificarToken, ctrlUsuarioPaciente.getAllByUsuarioId);

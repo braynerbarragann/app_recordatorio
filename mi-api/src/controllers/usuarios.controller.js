@@ -29,37 +29,42 @@ const getById = async (req, res) => {
   }
 };
 
-
-
 const update = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { nombre, correo, telefono } = req.body
+    // Obtener el ID desde el token JWT
+    const id = req.usuario.usuario_id;
+    const { nombre, correo, telefono } = req.body;
 
-    const camposRequeridos = ['nombre', 'correo', 'telefono'];
-    const faltaCampo = faltanCampos(req.body, camposRequeridos);
-
-    if (faltaCampo || !nombre || !correo) {
+    if (
+      !nombre ||
+      !correo ||
+      !Object.prototype.hasOwnProperty.call(req.body, 'telefono')
+    ) {
       return res.status(400).json({
         ok: false,
-        msg: 'nombre y correo son requeridos; telefono puede ser null'
+        msg: 'nombre, correo y telefono son requeridos; telefono puede ser null'
       });
-    };
+    }
 
-    const updateUsuario = await UsuarioModel.update(id, nombre, correo, telefono);
+    const updateUsuario = await UsuarioModel.update(
+      id,
+      nombre,
+      correo,
+      telefono
+    );
 
     if (!updateUsuario) {
       return res.status(404).json({
         ok: false,
         msg: 'Usuario no encontrado'
       });
-    };
+    }
 
     return res.status(200).json({
       ok: true,
+      msg: 'Usuario actualizado correctamente',
       data: updateUsuario
     });
-
   } catch (error) {
     console.error(error);
 
@@ -72,8 +77,10 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   try {
-    const resultado =
-      await UsuarioModel.remove(req.params.id);
+    // Obtener el ID desde el token JWT
+    const id = req.usuario.usuario_id;
+
+    const resultado = await UsuarioModel.remove(id);
 
     if (!resultado) {
       return res.status(404).json({
@@ -86,15 +93,15 @@ const remove = async (req, res) => {
       ok: true,
       msg: 'Usuario eliminado correctamente'
     });
-
   } catch (error) {
     console.error(error);
 
     return res.status(500).json({
       ok: false,
-      msg: 'Error al eliminar la usuario'
+      msg: 'Error al eliminar el usuario'
     });
   }
 };
 
 module.exports = { getAll, getById, update, remove };
+
