@@ -6,15 +6,15 @@ const tratamientos_medCtrl = require('../controllers/tratamientos_medicamentos.c
 const citasCtrl =  require('../controllers/citas.controller');
 const diagnosticosCtrl = require('../controllers/diagnosticos.controller');
 const tomasCtrl = require('../controllers/tomas_medicamentos.controller');
+const { verificarToken } = require('../middlewares/auth.middleware');
 
 
-router.get('/', pacientesCtrl.getAll);
-router.get('/:id', pacientesCtrl.getById);
-router.post('/', pacientesCtrl.create);
-router.put('/:id', pacientesCtrl.update);
-router.delete('/:id', pacientesCtrl.remove);
 
-router.get('/:pacienteId/citas', citasCtrl.getAllByPacienteId);
+router.get('/:id', verificarToken, pacientesCtrl.getById);
+router.post('/', verificarToken, pacientesCtrl.create);
+router.put('/:id', verificarToken, pacientesCtrl.update);
+
+router.get('/:pacienteId/citas', verificarToken, citasCtrl.getAllByPacienteId);
 router.get('/:pacienteId/citas/:id', citasCtrl.getById);
 router.post('/:pacienteId/citas', citasCtrl.create);
 router.put('/:pacienteId/citas/:id', citasCtrl.update);
