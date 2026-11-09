@@ -31,20 +31,18 @@ const getById = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     // Obtener el ID desde el token JWT
     const id = req.usuario.usuario_id;
     const { nombre, correo, telefono } = req.body;
-=======
+
     const usuarioId = req.usuario.usuario_id;
     const { nombre, correo, telefono } = req.body
->>>>>>> 75887e0edb04c799ec909fb69d2d1b65726d5e31
-=======
+
     // Obtener el ID desde el token JWT
     const id = req.usuario.usuario_id;
     const { nombre, correo, telefono } = req.body;
->>>>>>> 303ea9b3c54bc90ddd77809cd98dd81b5c1eb00d
+
 
     if (
       !nombre ||
@@ -57,22 +55,18 @@ const update = async (req, res) => {
       });
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 303ea9b3c54bc90ddd77809cd98dd81b5c1eb00d
+
     const updateUsuario = await UsuarioModel.update(
       id,
       nombre,
       correo,
       telefono
     );
-<<<<<<< HEAD
-=======
+
     const updateUsuario = await UsuarioModel.update(usuarioId, nombre, correo, telefono);
->>>>>>> 75887e0edb04c799ec909fb69d2d1b65726d5e31
-=======
->>>>>>> 303ea9b3c54bc90ddd77809cd98dd81b5c1eb00d
+
+    const updateUsuario = await UsuarioModel.update(usuarioId, nombre, correo, telefono);
+
 
     if (!updateUsuario) {
       return res.status(404).json({
@@ -98,21 +92,19 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   try {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 303ea9b3c54bc90ddd77809cd98dd81b5c1eb00d
+
     // Obtener el ID desde el token JWT
     const id = req.usuario.usuario_id;
 
     const resultado = await UsuarioModel.remove(id);
-<<<<<<< HEAD
-=======
+
     const usuarioId = req.usuario.usuario_id;
     const resultado = await UsuarioModel.remove(usuarioId);
->>>>>>> 75887e0edb04c799ec909fb69d2d1b65726d5e31
-=======
->>>>>>> 303ea9b3c54bc90ddd77809cd98dd81b5c1eb00d
+
+
+    const usuarioId = req.usuario.usuario_id;
+    const resultado = await UsuarioModel.remove(usuarioId);
+
 
     if (!resultado) {
       return res.status(404).json({
