@@ -14,5 +14,6 @@ export const iniciarSesion = (correo, contrasena) =>
 export const obtenerPerfil = () =>
   api.get('/usuarios/me').then((respuesta) => respuesta.data);
 
+
 export const actualizarPerfil = (datos) =>
   api.put('/users/update', datos).then((respuesta) => respuesta.data);

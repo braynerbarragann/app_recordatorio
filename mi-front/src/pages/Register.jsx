@@ -1,37 +1,244 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { registrar } from '../services/auth';
+import loginImage from '../assets/login-care.webp';
 
 export default function Register() {
-    const navigate = useNavigate();
-    const [form, setForm] = useState({ name: '', email: '', phone: '', password: '' });
-    const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-    const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+  });
+  const [mostrarContrasena, setMostrarContrasena] = useState(false);
+  const [error, setError] = useState('');
+  const [cargando, setCargando] = useState(false);
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
-        try {
-            await registrar(form);
-            navigate('/login');
-        } catch (err) {
-            setError(err.response?.data?.message || 'No se pudo registrar');
-        }
-    };
+  const onChange = (event) => {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-    return (
-        <form onSubmit={onSubmit}>
-            <h1>Crear cuenta</h1>
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setError('');
+    setCargando(true);
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+    try {
+      await registrar({
+        ...form,
+        phone: form.phone.trim() || null,
+      });
 
-            <p><input name="name" value={form.name} onChange={onChange} placeholder="Nombre" required /></p>
-            <p><input name="email" type="email" value={form.email} onChange={onChange} placeholder="Correo" required /></p>
-            <p><input name="phone" value={form.phone} onChange={onChange} placeholder="Telefono" required /></p>
-            <p><input name="password" type="password" value={form.password} onChange={onChange} placeholder="Contraseña" required /></p>
-            <button type="submit">Registrarme</button>
-            <p>¿Ya tienes cuenta? <Link to="/login">Ingresa</Link></p>
-        </form>
-    );
+      navigate('/login');
+    } catch (err) {
+      setError(
+        err.response?.data?.msg ||
+        err.response?.data?.mensaje ||
+        'No se pudo crear la cuenta. Revisa los datos e inténtalo de nuevo.'
+      );
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  return (
+    <main className="min-h-screen bg-sky-50 p-3 sm:p-6 lg:p-8">
+      <div className="mx-auto grid min-h-[calc(100vh-1.5rem)] max-w-7xl gap-4 overflow-hidden rounded-3xl sm:min-h-[calc(100vh-3rem)] lg:grid-cols-[0.85fr_1.15fr]">
+        {/* Panel informativo */}
+        <section className="order-2 rounded-3xl bg-gradient-to-br from-cyan-950 via-cyan-900 to-sky-800 p-6 text-white shadow-xl sm:p-9 lg:order-1">
+          <p className="inline-flex rounded-full bg-cyan-950/70 px-4 py-2 text-xs font-semibold text-sky-100">
+            Organización de salud familiar
+          </p>
+
+          <p className="mt-6 text-sm font-semibold uppercase tracking-wide text-sky-200">
+            Cuidado familiar organizado
+          </p>
+
+          <h1 className="mt-3 max-w-lg text-3xl font-bold leading-tight sm:text-4xl">
+            Crea tu cuenta para organizar el cuidado de tu familia.
+          </h1>
+
+          <p className="mt-4 max-w-lg leading-7 text-sky-100">
+            Administra los pacientes vinculados a tu cuenta y organiza sus
+            citas, diagnósticos y tratamientos.
+          </p>
+
+          <div className="relative mt-7 overflow-hidden rounded-2xl">
+            <img
+              src={loginImage}
+              alt="Una persona cuidadora acompañando a un adulto mayor"
+              className="h-52 w-full object-cover sm:h-64"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-cyan-950/80 to-transparent"
+            />
+            <p className="absolute bottom-4 left-4 rounded-lg bg-cyan-950/70 px-3 py-2 text-sm font-medium">
+              Un espacio para organizar la información familiar
+            </p>
+          </div>
+
+          <div className="mt-6 space-y-3">
+            {[
+              ['Perfiles vinculados', 'Organiza la información de tus pacientes.'],
+              ['Citas y tratamientos', 'Consulta sus datos desde un mismo lugar.'],
+              ['Registro de tomas', 'Revisa las tomas programadas y registradas.'],
+            ].map(([titulo, descripcion]) => (
+              <div key={titulo} className="rounded-xl bg-cyan-950/40 p-4">
+                <p className="font-semibold">{titulo}</p>
+                <p className="mt-1 text-sm text-sky-100">{descripcion}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Formulario de registro */}
+        <section className="order-1 flex flex-col justify-center rounded-3xl bg-white p-6 shadow-xl sm:p-10 lg:order-2">
+          <div className="mx-auto w-full max-w-2xl">
+            <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight text-cyan-950">
+                  Crear una cuenta
+                </h2>
+                <p className="mt-2 text-slate-600">
+                  Registra tus datos para comenzar.
+                </p>
+              </div>
+
+              <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-cyan-900">
+                Datos de la cuenta
+              </span>
+            </div>
+
+            <form onSubmit={onSubmit} className="space-y-5">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-2 block text-sm font-semibold text-cyan-950"
+                >
+                  Nombre y apellidos
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  value={form.name}
+                  onChange={onChange}
+                  maxLength={100}
+                  required
+                  className="w-full rounded-xl border border-sky-100 bg-sky-50 px-4 py-3 text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+                  placeholder="Tu nombre completo"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-2 block text-sm font-semibold text-cyan-950"
+                >
+                  Correo electrónico
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  value={form.email}
+                  onChange={onChange}
+                  maxLength={150}
+                  required
+                  className="w-full rounded-xl border border-sky-100 bg-sky-50 px-4 py-3 text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+                  placeholder="tu.correo@ejemplo.com"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="mb-2 block text-sm font-semibold text-cyan-950"
+                >
+                  Teléfono <span className="font-normal text-slate-500">(opcional)</span>
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  value={form.phone}
+                  onChange={onChange}
+                  maxLength={20}
+                  className="w-full rounded-xl border border-sky-100 bg-sky-50 px-4 py-3 text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+                  placeholder="Tu número de teléfono"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="mb-2 block text-sm font-semibold text-cyan-950"
+                >
+                  Contraseña
+                </label>
+
+                <div className="flex rounded-xl border border-sky-100 bg-sky-50 focus-within:border-sky-500 focus-within:ring-2 focus-within:ring-sky-200">
+                  <input
+                    id="password"
+                    name="password"
+                    type={mostrarContrasena ? 'text' : 'password'}
+                    autoComplete="new-password"
+                    value={form.password}
+                    onChange={onChange}
+                    required
+                    className="min-w-0 flex-1 rounded-xl bg-transparent px-4 py-3 text-slate-900 outline-none"
+                    placeholder="Crea una contraseña"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setMostrarContrasena(!mostrarContrasena)}
+                    aria-label={mostrarContrasena ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                    className="px-4 text-sm font-semibold text-cyan-800"
+                  >
+                    {mostrarContrasena ? 'Ocultar' : 'Mostrar'}
+                  </button>
+                </div>
+              </div>
+
+              {error && (
+                <p
+                  role="alert"
+                  className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700"
+                >
+                  {error}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={cargando}
+                className="w-full rounded-xl bg-cyan-950 px-5 py-3.5 font-semibold text-white shadow-md transition hover:bg-cyan-800 disabled:cursor-wait disabled:opacity-60"
+              >
+                {cargando ? 'Creando cuenta…' : 'Crear cuenta'}
+              </button>
+            </form>
+
+            <p className="mt-6 text-center text-sm text-slate-600">
+              ¿Ya tienes cuenta?{' '}
+              <Link
+                to="/login"
+                className="font-semibold text-sky-700 underline underline-offset-4 hover:text-sky-900"
+              >
+                Inicia sesión
+              </Link>
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }
