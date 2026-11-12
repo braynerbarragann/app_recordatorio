@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      VITE_API_URL: https://api-recordatorio-agf4gparckddg9bw.spaincentral-01.azurewebsites.net/api
     permissions:
       contents: read #This is required for actions/checkout
     defaults:
