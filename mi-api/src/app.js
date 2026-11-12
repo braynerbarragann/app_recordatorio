@@ -3,7 +3,7 @@ const cors = require('cors')
 const app = express();
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://frontend-recordatorio-abgpg6ajfubtfqct.spaincentral-01.azurewebsites.net/'], 
+    origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://frontend-recordatorio-abgpg6ajfubtfqct.spaincentral-01.azurewebsites.net'], 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }))
