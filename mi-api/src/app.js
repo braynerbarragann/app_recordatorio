@@ -1,26 +1,50 @@
+
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
+const appInsights = require('applicationinsights');
+
 const app = express();
 
+// CORS
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://frontend-recordatorio-abgpg6ajfubtfqct.spaincentral-01.azurewebsites.net'], 
+    origin: [
+        'http://localhost:5173',
+        'http://127.0.0.1:5173',
+        'https://frontend-recordatorio-abgpg6ajfubtfqct.spaincentral-01.azurewebsites.net'
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
-}))
+}));
 
 // Middleware para parsear JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Request logging middleware
+// Middleware para registrar solicitudes en Logs y Traces
 app.use((req, res, next) => {
-    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+
+    // Evitar registrar solicitudes OPTIONS de CORS
+    if (req.method === 'OPTIONS') {
+        return next();
+    }
+
+    const mensaje = `${req.method} ${req.path}`;
+
+    // Registro en consola
+    console.log(`${new Date().toISOString()} - ${mensaje}`);
+
+    // Registro en Application Insights
+    if (appInsights.defaultClient) {
+        appInsights.defaultClient.trackTrace({
+            message: mensaje,
+            severity: appInsights.Contracts.SeverityLevel.Information
+        });
+    }
+
     next();
 });
 
-
-
-// Rutas
+// RUTAS
 
 const authRoutes = require('./routes/auth.routes');
 app.use('/api/auth', authRoutes);
@@ -37,9 +61,7 @@ app.use('/api/medicamentos', medicamentosRouter);
 const enfermedadesRouter = require('./routes/enfermedades.routes');
 app.use('/api/enfermedades', enfermedadesRouter);
 
-
-
-//CATALOGOS
+// CATÁLOGOS
 
 const via_administracionRouter = require('./routes/via_administracion.routes');
 app.use('/api/vias-administracion', via_administracionRouter);
@@ -66,3 +88,4 @@ const tipo_citaRouter = require('./routes/tipo_cita.routes');
 app.use('/api/tipos-cita/', tipo_citaRouter);
 
 module.exports = app;
+
