@@ -9,6 +9,7 @@ appInsights
     .setAutoCollectDependencies(true)
     .setAutoCollectExceptions(true)
     .setAutoCollectPerformance(true, true)
+    .setSendLiveMetrics(true)
     .start();
 
 // Importar la aplicación después de inicializar Application Insights
