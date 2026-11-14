@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { registrar } from '../services/auth';
-import loginImage from '../assets/login-care.webp';
+import { registrar } from '../../services/auth';
+import loginImage from '../../assets/login-care.webp';
 
 export default function Register() {
   const navigate = useNavigate();

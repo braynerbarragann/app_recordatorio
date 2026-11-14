@@ -91,7 +91,7 @@ export default function Home() {
           <div>
             <p className="mb-6 inline-flex items-center gap-2 rounded-full bg-sky-100 px-4 py-2 text-sm font-medium text-cyan-900">
               <span aria-hidden="true" className="text-emerald-700">✓</span>
-              Organiza citas y tratamientos en un solo lugar Hola mundo
+              Organiza citas y tratamientos en un solo lugar
             </p>
 
             <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-cyan-950 sm:text-5xl">

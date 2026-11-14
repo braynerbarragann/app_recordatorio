@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { obtenerPacientes } from '../services/usuarioPaciente';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { obtenerPacientes } from '../../services/usuarioPaciente';
 
 const formatearFecha = (fecha) => {
   if (!fecha) return 'No registrada';
@@ -107,7 +108,7 @@ export default function Profile() {
           </p>
         </div>
 
-        <section aria-label="Buscar y filtrar pacientes" className="mb-6 flex flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+        <section aria-label="Buscar, filtrar y crear pacientes" className="mb-6 flex flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <label className="flex min-w-0 flex-1 items-center gap-3 rounded-xl bg-sky-50 px-4 py-3 text-slate-500 focus-within:ring-2 focus-within:ring-sky-600">
             <span aria-hidden="true">⌕</span>
             <input
@@ -141,6 +142,13 @@ export default function Profile() {
               </button>
             ))}
           </div>
+
+          <Link
+            to="/pacientes/registrar"
+            className="inline-flex shrink-0 items-center justify-center rounded-xl bg-sky-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-800"
+          >
+            Crear paciente
+          </Link>
         </section>
 
         {cargando ? (
@@ -210,6 +218,21 @@ export default function Profile() {
                       <p className="text-xs font-semibold uppercase tracking-wide text-sky-800">Vinculado desde</p>
                       <p className="mt-2 text-sm text-slate-700">{formatearFecha(vinculo.fecha_vinculacion)}</p>
                     </div>
+                  </div>
+
+                  <div className="mt-5 flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:justify-end">
+                    <Link
+                      to={`/pacientes/${paciente.id}/editar`}
+                      className="inline-flex items-center justify-center rounded-xl bg-sky-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-800"
+                    >
+                      Editar paciente
+                    </Link>
+                    <Link
+                      to={`/pacientes/${paciente.id}`}
+                      className="inline-flex items-center justify-center rounded-xl border border-sky-200 bg-sky-50 px-5 py-3 text-sm font-semibold text-sky-900 transition hover:bg-sky-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-800"
+                    >
+                      Panel paciente
+                    </Link>
                   </div>
                 </article>
               );
