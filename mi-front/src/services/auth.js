@@ -15,5 +15,10 @@ export const obtenerPerfil = () =>
   api.get('/usuarios/me').then((respuesta) => respuesta.data);
 
 
+
 export const actualizarPerfil = (datos) =>
-  api.put('/users/update', datos).then((respuesta) => respuesta.data);
+  api.put('/usuarios/me', {
+    nombre: datos.nombre,
+    correo: datos.correo,
+    telefono: datos.telefono ?? null
+  }).then((respuesta) => respuesta.data);
