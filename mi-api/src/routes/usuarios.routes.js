@@ -1,13 +1,28 @@
+
 const express = require('express');
 const router = express.Router();
+
 const ctrlUsuario = require('../controllers/usuarios.controller');
 const ctrlUsuarioPaciente = require('../controllers/usuario_pacientes.controller');
+
 const { verificarToken } = require('../middlewares/auth.middleware');
 
-//router.get('/', ctrlUsuario.getAll);
+// Perfil del usuario autenticado
 router.get('/me', verificarToken, ctrlUsuario.getById);
+
+router.put('/', verificarToken, ctrlUsuario.update);
+router.delete('/', verificarToken, ctrlUsuario.remove);
+
 router.put('/me', verificarToken, ctrlUsuario.update);
 router.delete('/me', verificarToken, ctrlUsuario.remove);
+
+router.put('/', verificarToken, ctrlUsuario.update);
+router.delete('/', verificarToken, ctrlUsuario.remove);
+
+
+router.put('/me', verificarToken, ctrlUsuario.update);
+router.delete('/me', verificarToken, ctrlUsuario.remove);
+
 
 // Obtener todos los pacientes del usuario autenticado
 router.get('/me/pacientes', verificarToken, ctrlUsuarioPaciente.getAllByUsuarioId);
