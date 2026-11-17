@@ -2,11 +2,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import {
   actualizarPerfil,
   obtenerPerfil
-} from '../services/auth';
+} from '../../services/auth';
 
 export default function EditProfile() {
 
@@ -74,17 +74,27 @@ export default function EditProfile() {
 
   return (
 
-    <main className="min-h-screen bg-slate-50 px-4 py-10">
+    <main className="min-h-screen bg-transparent px-4 py-10">
 
       <div className="mx-auto max-w-xl rounded-2xl bg-white p-8 shadow-sm">
 
-        <h1 className="mb-2 text-2xl font-bold text-sky-950">
-          Actualizar perfil
-        </h1>
-
-        <p className="mb-6 text-sm text-slate-500">
-          Modifica los datos personales de tu cuenta MediTime.
-        </p>
+        <div className="mb-6 text-center">
+          <span className="mb-3 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-100 text-cyan-800">
+            <span
+              className="material-symbols-outlined notranslate text-4xl"
+              translate="no"
+              aria-hidden="true"
+            >
+              person_edit
+            </span>
+          </span>
+          <h1 className="text-2xl font-bold text-sky-950">
+            Actualizar perfil
+          </h1>
+          <p className="mt-2 text-sm text-slate-500">
+            Modifica los datos personales de tu cuenta.
+          </p>
+        </div>
 
         {error && (
           <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">

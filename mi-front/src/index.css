@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 52% 42%, rgb(165 243 252 / 42%), transparent 52%),
+    linear-gradient(125deg, #eff9ff 0%, #f9fdff 34%, #dcfbff 62%, #dceeff 100%);
+  background-attachment: fixed;
+}
+
+.app-background {
+  background-image:
+    radial-gradient(ellipse at 52% 42%, rgb(165 243 252 / 42%), transparent 52%),
+    linear-gradient(125deg, #eff9ff 0%, #f9fdff 34%, #dcfbff 62%, #dceeff 100%);
+  background-attachment: fixed;
+}
