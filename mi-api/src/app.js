@@ -3,7 +3,8 @@ const cors = require('cors')
 const app = express();
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173'], 
+    origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://frontend-recordatorio-abgpg6ajfubtfqct.spaincentral-01.azurewebsites.net'], 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
@@ -17,16 +18,12 @@ app.use((req, res, next) => {
     next();
 });
 
-// CORS middleware
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
-        return res.status(200).json({});
-    }
-    next();
-});
+
+// Agente
+
+const agenteRouter = require('./routes/agente.routes');
+app.use('/api/agente', agenteRouter);
+
 
 // Rutas
 

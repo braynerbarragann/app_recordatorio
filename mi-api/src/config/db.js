@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
@@ -10,6 +13,13 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
   connectionLimit: process.env.DB_POOL_LIMIT || 10,
   waitForConnections: true,
+  ssl: {
+  ca: fs.readFileSync(
+    path.resolve(__dirname, '../../certs/DigiCertGlobalRootG2.crt.pem'),
+    'utf8'
+  ),
+  rejectUnauthorized: true,
+  },
 });
 
 // Verificar conexión al iniciar

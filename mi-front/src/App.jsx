@@ -7,6 +7,7 @@ import EditProfile from './pages/usuario/EditProfile';
 import EditarPaciente from './pages/pacientes/EditarPaciente';
 import PanelPaciente from './pages/pacientes/PanelPaciente';
 import RegistrarPaciente from './pages/pacientes/RegistrarPaciente';
+import Chat from './pages/Chat';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
 
         <Route element={<ProtectedRoute />}>
+          <Route path="/chat" element={<Chat />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="/perfil/editar" element={<EditProfile />} />
           <Route path="/pacientes/registrar" element={<RegistrarPaciente />} />

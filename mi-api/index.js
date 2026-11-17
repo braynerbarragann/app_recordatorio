@@ -1,5 +1,19 @@
-const app = require('./src/app');
 require('dotenv').config();
+
+// Inicializar Azure Application Insights
+const appInsights = require('applicationinsights');
+
+appInsights
+    .setup()
+    .setAutoCollectRequests(true)
+    .setAutoCollectDependencies(true)
+    .setAutoCollectExceptions(true)
+    .setAutoCollectPerformance(true, true)
+    .setSendLiveMetrics(true)
+    .start();
+
+// Importar la aplicación después de inicializar Application Insights
+const app = require('./src/app');
 
 const PORT = process.env.PORT || 3000;
 
