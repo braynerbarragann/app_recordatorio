@@ -82,7 +82,7 @@ export default function Profile() {
   ).length;
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-800 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-transparent px-4 py-8 text-slate-800 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <section className="mb-7">
           <div className="mb-2 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-sky-800">
@@ -108,8 +108,8 @@ export default function Profile() {
           </p>
         </div>
 
-        <section aria-label="Buscar, filtrar y crear pacientes" className="mb-6 flex flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-          <label className="flex min-w-0 flex-1 items-center gap-3 rounded-xl bg-sky-50 px-4 py-3 text-slate-500 focus-within:ring-2 focus-within:ring-sky-600">
+        <section aria-label="Buscar, filtrar y crear pacientes" className="mb-6 flex flex-col gap-4 rounded-2xl border border-cyan-100 bg-white p-4 shadow-md shadow-cyan-950/10 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <label className="flex min-w-0 flex-1 items-center gap-3 rounded-xl bg-sky-50 px-4 py-3 text-slate-500 focus-within:ring-2 focus-within:ring-cyan-700">
             <span aria-hidden="true">⌕</span>
             <input
               className="w-full bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-500"
@@ -133,8 +133,8 @@ export default function Profile() {
                 onClick={() => setFiltro(opcion.valor)}
                 className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
                   filtro === opcion.valor
-                    ? 'bg-sky-800 text-white'
-                    : 'bg-sky-50 text-sky-900 hover:bg-sky-100'
+                    ? 'bg-cyan-800 text-white'
+                    : 'bg-sky-50 text-cyan-900 hover:bg-cyan-100'
                 }`}
                 aria-pressed={filtro === opcion.valor}
               >
@@ -145,7 +145,7 @@ export default function Profile() {
 
           <Link
             to="/pacientes/registrar"
-            className="inline-flex shrink-0 items-center justify-center rounded-xl bg-sky-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-800"
+            className="inline-flex shrink-0 items-center justify-center rounded-xl bg-cyan-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-700"
           >
             Crear paciente
           </Link>
@@ -178,7 +178,7 @@ export default function Profile() {
               const edad = obtenerEdad(paciente.fecha_nacimiento);
 
               return (
-                <article key={vinculo.id} className="relative rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition hover:shadow-md sm:p-6">
+                <article key={vinculo.id} className="relative rounded-2xl border border-slate-100 bg-white p-5 text-slate-800 shadow-sm transition hover:shadow-md sm:p-6">
                   <div className="absolute -top-3 right-5 rounded-full bg-sky-800 px-4 py-1.5 text-xs font-bold text-white shadow-sm">
                     <span className={`mr-1.5 inline-block h-2 w-2 rounded-full ${activo ? 'bg-emerald-300' : 'bg-slate-300'}`} />
                     {activo ? 'PACIENTE ACTIVO' : 'INACTIVO'}

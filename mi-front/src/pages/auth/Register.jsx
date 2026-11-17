@@ -47,7 +47,7 @@ export default function Register() {
   };
 
   return (
-    <main className="min-h-screen bg-sky-50 p-3 sm:p-6 lg:p-8">
+    <main className="min-h-screen bg-transparent p-3 sm:p-6 lg:p-8">
       <div className="mx-auto grid min-h-[calc(100vh-1.5rem)] max-w-7xl gap-4 overflow-hidden rounded-3xl sm:min-h-[calc(100vh-3rem)] lg:grid-cols-[0.85fr_1.15fr]">
         {/* Panel informativo */}
         <section className="order-2 rounded-3xl bg-gradient-to-br from-cyan-950 via-cyan-900 to-sky-800 p-6 text-white shadow-xl sm:p-9 lg:order-1">
@@ -98,22 +98,30 @@ export default function Register() {
         </section>
 
         {/* Formulario de registro */}
-        <section className="order-1 flex flex-col justify-center rounded-3xl bg-white p-6 shadow-xl sm:p-10 lg:order-2">
+        <section className="order-1 flex flex-col justify-center rounded-3xl border border-white/80 bg-white/95 p-6 shadow-xl sm:p-10 lg:order-2">
           <div className="mx-auto w-full max-w-2xl">
-            <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
-              <div>
-                <h2 className="text-3xl font-bold tracking-tight text-cyan-950">
-                  Crear una cuenta
-                </h2>
-                <p className="mt-2 text-slate-600">
-                  Registra tus datos para comenzar.
-                </p>
-              </div>
 
-              <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-cyan-900">
-                Datos de la cuenta
+            <div className="text-center">
+              <span className="mb-3 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-100 text-cyan-800">
+
+
+                
+
+                <span class="material-symbols-outlined" translate="no"
+                  aria-hidden="true" >
+                  person_add
+                </span>
+
+
               </span>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-cyan-950 sm:text-4xl">
+                Crear una cuenta
+              </h2>
+              <p className="mt-2 text-slate-600">
+                Registra tus datos para comenzar.
+              </p>
             </div>
+
 
             <form onSubmit={onSubmit} className="space-y-5">
               <div>

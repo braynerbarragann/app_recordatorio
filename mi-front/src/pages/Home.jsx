@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 
 const caracteristicas = [
   {
-    icono: '◷',
+    icono: 'timer',
     titulo: 'Control de tomas y medicamentos',
     descripcion:
       'Organiza los medicamentos, las dosis y los horarios indicados para cada paciente.',
@@ -12,7 +12,7 @@ const caracteristicas = [
     color: 'bg-cyan-900',
   },
   {
-    icono: '♙',
+    icono: 'diversity_1',
     titulo: 'Gestión multipaciente',
     descripcion:
       'Vincula perfiles y consulta la información de cada persona desde tu cuenta.',
@@ -20,7 +20,7 @@ const caracteristicas = [
     color: 'bg-cyan-800',
   },
   {
-    icono: '▦',
+    icono: 'event',
     titulo: 'Agenda de citas',
     descripcion:
       'Registra y consulta las citas médicas de los pacientes vinculados.',
@@ -28,7 +28,7 @@ const caracteristicas = [
     color: 'bg-sky-700',
   },
   {
-    icono: '▣',
+    icono: 'diagnosis',
     titulo: 'Diagnósticos y tratamientos',
     descripcion:
       'Mantén organizados los diagnósticos y tratamientos asociados a cada paciente.',
@@ -75,9 +75,9 @@ export default function Home() {
   }, [location.pathname, location.hash]);
 
   return (
-    <main>
+    <main className="app-background">
       {/* Portada */}
-      <section className="relative isolate overflow-hidden bg-gradient-to-br from-sky-50 via-white to-sky-100">
+      <section className="relative isolate overflow-hidden">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -right-24 top-24 -z-0 size-80 rounded-full bg-sky-200/40 blur-3xl"
@@ -154,52 +154,52 @@ export default function Home() {
             />
             <section
               aria-label="Vista demostrativa del seguimiento de salud"
-              className="relative rounded-3xl border border-white bg-white p-5 shadow-xl sm:p-6"
+              className="relative rounded-3xl border border-cyan-800 bg-cyan-950 p-5 text-white shadow-xl shadow-cyan-950/20 sm:p-6"
             >
-              <div className="mb-5 flex items-center justify-between gap-3 rounded-2xl bg-sky-50 p-4">
+              <div className="mb-5 flex items-center justify-between gap-3 rounded-2xl border border-cyan-800 bg-cyan-900/50 p-4">
                 <div className="flex min-w-0 items-center gap-3">
-                  <span className="grid size-12 shrink-0 place-items-center rounded-full bg-cyan-800 font-bold text-white">
+                  <span className="grid size-12 shrink-0 place-items-center rounded-full border border-cyan-500 bg-cyan-950 font-bold text-cyan-200">
                     CF
                   </span>
                   <div className="min-w-0">
-                    <p className="truncate font-semibold text-cyan-950">
+                    <p className="truncate font-semibold text-white">
                       Carmen Flores
-                      <span className="ml-2 text-sm font-normal text-sky-700">Mamá</span>
+                      <span className="ml-2 rounded-full border border-cyan-700 px-2 py-0.5 text-sm font-normal text-cyan-300">Mamá</span>
                     </p>
-                    <p className="truncate text-sm text-slate-600">Perfil de ejemplo</p>
+                    <p className="truncate text-sm text-cyan-200">Perfil de ejemplo</p>
                   </div>
                 </div>
-                <span className="shrink-0 rounded-lg bg-white px-3 py-2 text-sm text-cyan-900">Demo</span>
+                <span className="shrink-0 rounded-lg border border-cyan-700 bg-cyan-800/60 px-3 py-2 text-sm text-cyan-100">Demo</span>
               </div>
 
-              <div className="mb-5 flex items-center justify-between gap-4 rounded-2xl bg-emerald-100 p-4">
+              <div className="mb-5 flex items-center justify-between gap-4 rounded-2xl border border-emerald-800 bg-emerald-950/70 p-4">
                 <div>
-                  <p className="font-semibold text-emerald-950">Seguimiento de hoy</p>
-                  <p className="text-sm text-emerald-900">2 de 3 tomas registradas</p>
+                  <p className="font-semibold text-emerald-200">Seguimiento de hoy</p>
+                  <p className="text-sm text-emerald-300">2 de 3 tomas registradas</p>
                 </div>
-                <span className="text-lg font-bold text-emerald-950">2/3</span>
+                <span className="rounded-xl border border-emerald-700 bg-emerald-900/60 px-3 py-1 text-lg font-bold text-emerald-300">2/3</span>
               </div>
 
-              <div className="mb-2 flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <div className="mb-2 flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-wide text-cyan-300">
                 <span>Próxima toma</span>
                 <span>08:30 a. m.</span>
               </div>
-              <div className="mb-4 flex items-center justify-between gap-3 rounded-2xl bg-sky-50 p-4">
+              <div className="mb-4 flex items-center justify-between gap-3 rounded-2xl border border-slate-700 bg-slate-800/80 p-4">
                 <div>
-                  <p className="font-semibold text-cyan-950">Medicamento de ejemplo</p>
-                  <p className="text-sm text-slate-600">Dosis e instrucción del tratamiento</p>
+                  <p className="font-semibold text-white">Medicamento de ejemplo</p>
+                  <p className="text-sm text-cyan-100">Dosis e instrucción del tratamiento</p>
                 </div>
-                <span aria-hidden="true" className="text-xl text-cyan-800">◷</span>
+                <span aria-hidden="true" className="grid size-10 place-items-center rounded-full bg-cyan-900/70 text-xl text-cyan-300">◷</span>
               </div>
-              <div className="flex items-center justify-between gap-3 rounded-2xl bg-sky-100 p-4">
+              <div className="flex items-center justify-between gap-3 rounded-2xl border border-cyan-800 bg-cyan-900/60 p-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-800">Próxima consulta</p>
-                  <p className="mt-1 font-semibold text-cyan-950">Cita de ejemplo</p>
-                  <p className="text-sm text-slate-600">Fecha y hora programadas</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-cyan-300">Próxima consulta</p>
+                  <p className="mt-1 font-semibold text-white">Cita de ejemplo</p>
+                  <p className="text-sm text-cyan-100">Fecha y hora programadas</p>
                 </div>
-                <span aria-hidden="true" className="text-xl text-cyan-800">→</span>
+                <span aria-hidden="true" className="grid size-10 place-items-center rounded-full bg-cyan-800/70 text-xl text-cyan-200">→</span>
               </div>
-              <p className="mt-4 text-center text-xs text-slate-500">
+              <p className="mt-4 border-t border-cyan-900 pt-4 text-center text-xs text-cyan-300">
                 La información de esta tarjeta es ilustrativa.
               </p>
             </section>
@@ -208,7 +208,7 @@ export default function Home() {
       </section>
 
       {/* Características */}
-      <section id="caracteristicas" className="scroll-mt-24 bg-white px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <section id="caracteristicas" className="scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-7xl">
           <p className="text-sm font-bold uppercase tracking-wide text-sky-700">
             Capacidades del sistema
@@ -224,17 +224,19 @@ export default function Home() {
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {caracteristicas.map((caracteristica) => (
-              <article key={caracteristica.titulo} className="flex min-h-80 flex-col rounded-2xl bg-sky-50 p-6">
-                <span aria-hidden="true" className={`flex h-14 w-14 items-center justify-center rounded-xl ${caracteristica.color} text-2xl text-white shadow`}>
-                  {caracteristica.icono}
+              <article key={caracteristica.titulo} className="flex min-h-80 flex-col rounded-2xl border border-cyan-800 bg-cyan-950 p-6 text-white shadow-lg shadow-cyan-950/15">
+                <span aria-hidden="true" className={`flex h-14 w-14 items-center justify-center rounded-xl border border-cyan-700 ${caracteristica.color} text-white shadow`}>
+                  <span translate="no" className="material-symbols-outlined notranslate text-3xl">
+                    {caracteristica.icono}
+                  </span>
                 </span>
-                <h3 className="mt-5 text-xl font-semibold text-cyan-950">
+                <h3 className="mt-5 text-xl font-semibold text-white">
                   {caracteristica.titulo}
                 </h3>
-                <p className="mt-3 leading-6 text-slate-600">
+                <p className="mt-3 leading-6 text-cyan-100">
                   {caracteristica.descripcion}
                 </p>
-                <span className="mt-auto pt-6 text-sm font-semibold text-sky-800">
+                <span className="mt-auto pt-6 text-sm font-semibold text-cyan-300">
                   {caracteristica.detalle} →
                 </span>
               </article>
@@ -244,7 +246,7 @@ export default function Home() {
       </section>
 
       {/* Para quién es */}
-      <section id="para-quien" className="scroll-mt-24 bg-sky-50 px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <section id="para-quien" className="scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-2 md:items-center">
           <div>
             <p className="text-sm font-bold uppercase tracking-wide text-sky-700">¿Para quién es?</p>
@@ -261,9 +263,9 @@ export default function Home() {
               ['Familiares', 'Organiza la información de padres, hijos u otros seres queridos.'],
               ['Cuidadores', 'Consulta los datos básicos y los registros disponibles de cada perfil.'],
             ].map(([titulo, descripcion]) => (
-              <article key={titulo} className="rounded-2xl border border-sky-100 bg-white p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-cyan-950">{titulo}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{descripcion}</p>
+              <article key={titulo} className="rounded-2xl border border-cyan-800 bg-cyan-950 p-6 text-white shadow-lg shadow-cyan-950/15">
+                <h3 className="text-lg font-semibold text-white">{titulo}</h3>
+                <p className="mt-2 text-sm leading-6 text-cyan-100">{descripcion}</p>
               </article>
             ))}
           </div>
@@ -271,7 +273,7 @@ export default function Home() {
       </section>
 
       {/* Beneficios */}
-      <section id="beneficios" className="scroll-mt-24 bg-white px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <section id="beneficios" className="scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-7xl">
           <p className="text-sm font-bold uppercase tracking-wide text-sky-700">Beneficios</p>
           <h2 className="mt-2 max-w-3xl text-3xl font-bold tracking-tight text-cyan-950 sm:text-4xl">
@@ -279,10 +281,10 @@ export default function Home() {
           </h2>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {beneficios.map((beneficio) => (
-              <article key={beneficio.numero} className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
-                <span className="text-sm font-bold text-sky-700">{beneficio.numero}</span>
-                <h3 className="mt-4 text-xl font-semibold text-cyan-950">{beneficio.titulo}</h3>
-                <p className="mt-3 leading-6 text-slate-600">{beneficio.descripcion}</p>
+              <article key={beneficio.numero} className="rounded-2xl border border-cyan-800 bg-cyan-950 p-6 text-white shadow-lg shadow-cyan-950/15">
+                <span className="text-sm font-bold text-cyan-300">{beneficio.numero}</span>
+                <h3 className="mt-4 text-xl font-semibold text-white">{beneficio.titulo}</h3>
+                <p className="mt-3 leading-6 text-cyan-100">{beneficio.descripcion}</p>
               </article>
             ))}
           </div>
@@ -290,16 +292,16 @@ export default function Home() {
       </section>
 
       {/* Privacidad */}
-      <section id="privacidad" className="scroll-mt-24 bg-cyan-950 px-4 py-16 text-white sm:px-6 lg:px-8 lg:py-20">
+      <section id="privacidad" className="scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 md:items-center">
           <div>
-            <p className="text-sm font-bold uppercase tracking-wide text-cyan-200">Privacidad</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+            <p className="text-sm font-bold uppercase tracking-wide text-sky-700">Privacidad</p>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-cyan-950 sm:text-4xl">
               Tus perfiles se gestionan desde tu cuenta.
             </h2>
           </div>
           <div>
-            <p className="leading-7 text-cyan-100">
+            <p className="leading-7 text-slate-600">
               El acceso a las funciones privadas requiere iniciar sesión. Desde tu
               cuenta puedes consultar los pacientes vinculados a ti y la información
               asociada a esos perfiles.
@@ -307,7 +309,7 @@ export default function Home() {
             {!user && (
               <Link
                 to="/register"
-                className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 font-semibold text-cyan-950 transition hover:bg-cyan-50"
+                className="mt-6 inline-flex rounded-xl bg-cyan-900 px-5 py-3 font-semibold text-white transition hover:bg-cyan-800"
               >
                 Crear cuenta
               </Link>
