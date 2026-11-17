@@ -19,6 +19,11 @@ app.use((req, res, next) => {
 });
 
 
+// Agente
+
+const agenteRouter = require('./routes/agente.routes');
+app.use('/api/agente', agenteRouter);
+
 
 // Rutas
 
