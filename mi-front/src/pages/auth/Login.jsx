@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import loginImage from '../assets/login-care.webp';
+import { useAuth } from '../../context/AuthContext';
+import loginImage from '../../assets/login-care.png';
 
 export default function Login() {
   const { login } = useAuth();
@@ -39,7 +39,7 @@ export default function Login() {
   };
 
   return (
-    <main className="min-h-screen bg-sky-50 p-3 sm:p-6 lg:p-8">
+    <main className="min-h-screen bg-transparent p-3 sm:p-6 lg:p-8">
       <div className="mx-auto grid min-h-[calc(100vh-1.5rem)] max-w-7xl overflow-hidden rounded-3xl gap-4 sm:min-h-[calc(100vh-3rem)] lg:grid-cols-2">
         {/* Panel informativo */}
         <section className="order-2 rounded-3xl bg-gradient-to-br from-cyan-950 via-cyan-900 to-sky-800 p-6 text-white shadow-xl sm:p-9 lg:order-1">
@@ -89,18 +89,9 @@ export default function Login() {
         </section>
 
         {/* Formulario */}
-        <section className="order-1 flex flex-col justify-between rounded-3xl bg-white p-6 shadow-xl sm:p-10 lg:order-2">
+        <section className="order-1 flex flex-col justify-between rounded-3xl border border-white/80 bg-white/95 p-6 shadow-xl sm:p-10 lg:order-2">
           <div className="mx-auto w-full max-w-xl">
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div>
-                <h2 className="text-3xl font-bold tracking-tight text-cyan-950 sm:text-4xl">
-                  Iniciar sesión
-                </h2>
-                <p className="mt-2 text-slate-600">
-                  Ingresa a tu cuenta de cuidador o paciente.
-                </p>
-              </div>
-
+            <div className="mb-8 flex justify-center sm:justify-end">
               <p className="text-sm text-slate-600">
                 ¿No tienes cuenta?{' '}
                 <Link
@@ -109,6 +100,24 @@ export default function Login() {
                 >
                   Regístrate
                 </Link>
+              </p>
+            </div>
+
+            <div className="text-center">
+              <span className="mb-3 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-100 text-cyan-800">
+              
+
+                <span class="material-symbols-outlined" translate="no"
+                  aria-hidden="true" >
+                  person
+                </span>
+
+              </span>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-cyan-950 sm:text-4xl">
+                Iniciar sesión
+              </h2>
+              <p className="mt-2 text-slate-600">
+                Ingresa a tu cuenta de cuidador o paciente.
               </p>
             </div>
 
