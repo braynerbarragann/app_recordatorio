@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logo from '../assets/logo.png';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -18,7 +19,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="relative z-20 border-b border-sky-100 bg-white">
+    <header className="relative z-20 border-b border-cyan-800 bg-cyan-950 text-white shadow-sm">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8"
         aria-label="Navegación principal"
@@ -28,25 +29,13 @@ export default function Navbar() {
           onClick={cerrarMenus}
           className="flex shrink-0 items-center gap-3"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-950 text-white">
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="h-6 w-6"
-            >
-              <rect x="5" y="4" width="14" height="17" rx="2" />
-              <path d="M9 2h6M12 8v8M8 12h8" />
-            </svg>
-          </span>
+          <img src={logo} alt="" aria-hidden="true" className="h-10 w-10 shrink-0 object-contain" />
 
           <span>
-            <span className="block text-base font-bold leading-tight text-sky-950">
-              Recordatorio Salud
+            <span className="block text-base font-bold leading-tight text-white">
+              App Recordatorio
             </span>
-            <span className="block text-xs text-sky-700">
+            <span className="block text-xs text-cyan-300">
               Gestión terapéutica segura
             </span>
           </span>
@@ -58,28 +47,28 @@ export default function Navbar() {
             <Link
               to="/home#caracteristicas"
               onClick={cerrarMenus}
-              className="text-sm font-medium text-slate-700 hover:text-sky-800"
+              className="text-sm font-medium text-cyan-100 transition hover:text-white"
             >
               Características
             </Link>
             <Link
               to="/home#para-quien"
               onClick={cerrarMenus}
-              className="text-sm font-medium text-slate-700 hover:text-sky-800"
+              className="text-sm font-medium text-cyan-100 transition hover:text-white"
             >
               ¿Para quién es?
             </Link>
             <Link
               to="/home#beneficios"
               onClick={cerrarMenus}
-              className="text-sm font-medium text-slate-700 hover:text-sky-800"
+              className="text-sm font-medium text-cyan-100 transition hover:text-white"
             >
               Beneficios
             </Link>
             <Link
               to="/home#privacidad"
               onClick={cerrarMenus}
-              className="text-sm font-medium text-slate-700 hover:text-sky-800"
+              className="text-sm font-medium text-cyan-100 transition hover:text-white"
             >
               Privacidad
             </Link>
@@ -94,50 +83,46 @@ export default function Navbar() {
                 onClick={() => setMenuUsuarioAbierto((abierto) => !abierto)}
                 aria-label="Abrir menú de usuario"
                 aria-expanded={menuUsuarioAbierto}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-950 text-white transition hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-700 bg-cyan-900 text-cyan-100 transition hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-cyan-950"
               >
-                <svg
+                <span
+                  className="material-symbols-outlined notranslate text-2xl"
+                  translate="no"
                   aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className="h-5 w-5"
                 >
-                  <circle cx="12" cy="8" r="3" />
-                  <path d="M5 20a7 7 0 0 1 14 0" />
-                </svg>
+                  person
+                </span>
               </button>
 
               {menuUsuarioAbierto && (
-                <div className="absolute right-0 mt-3 w-72 rounded-xl border border-slate-100 bg-white p-4 shadow-xl">
-                  <p className="truncate font-semibold text-slate-900">
+                <div className="absolute right-0 mt-3 w-72 rounded-xl border border-cyan-700 bg-cyan-950 p-4 text-white shadow-xl shadow-cyan-950/30">
+                  <p className="truncate font-semibold text-white">
                     {user.nombre}
                   </p>
-                  <p className="mt-1 truncate text-sm text-slate-600">
+                  <p className="mt-1 truncate text-sm text-cyan-200">
                     {user.correo}
                   </p>
 
-                  <div className="my-3 border-t border-slate-100" />
+                  <div className="my-3 border-t border-cyan-800" />
 
                   <Link
                     to="/perfil"
                     onClick={cerrarMenus}
-                    className="block rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-sky-50"
+                    className="block rounded-lg px-3 py-2 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
                   >
                     Mi perfil
                   </Link>
                   <Link
                     to="/perfil/editar"
                     onClick={cerrarMenus}
-                    className="mt-1 block rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-sky-50"
+                    className="mt-1 block rounded-lg px-3 py-2 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
                   >
                     Editar perfil
                   </Link>
                   <button
                     type="button"
                     onClick={cerrarSesion}
-                    className="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-red-700 hover:bg-red-50"
+                    className="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-rose-300 transition hover:bg-rose-950/60"
                   >
                     Cerrar sesión
                   </button>
@@ -148,13 +133,13 @@ export default function Navbar() {
             <>
               <Link
                 to="/login"
-                className="px-3 py-2 text-sm font-medium text-sky-900 hover:text-sky-700"
+                className="px-3 py-2 text-sm font-medium text-cyan-100 transition hover:text-white"
               >
                 Iniciar sesión
               </Link>
               <Link
                 to="/register"
-                className="rounded-xl bg-sky-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-800"
+                className="rounded-xl border border-cyan-700 bg-cyan-800 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-cyan-700"
               >
                 Crear cuenta / Registrarse
               </Link>
@@ -168,7 +153,7 @@ export default function Navbar() {
           onClick={() => setMenuMovilAbierto((abierto) => !abierto)}
           aria-label={menuMovilAbierto ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={menuMovilAbierto}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-sky-950 hover:bg-sky-50 md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-cyan-100 transition hover:bg-cyan-900 hover:text-white md:hidden"
         >
           {menuMovilAbierto ? (
             <svg
@@ -198,32 +183,32 @@ export default function Navbar() {
 
       {/* Menú móvil */}
       {menuMovilAbierto && (
-        <div className="border-t border-slate-100 bg-white px-4 py-4 shadow-lg md:hidden">
+        <div className="border-t border-cyan-800 bg-cyan-950 px-4 py-4 text-white shadow-lg md:hidden">
           {user ? (
             <>
-              <div className="mb-3 rounded-xl bg-sky-50 p-3">
-                <p className="font-semibold text-slate-900">{user.nombre}</p>
-                <p className="truncate text-sm text-slate-600">{user.correo}</p>
+              <div className="mb-3 rounded-xl border border-cyan-800 bg-cyan-900/60 p-3">
+                <p className="font-semibold text-white">{user.nombre}</p>
+                <p className="truncate text-sm text-cyan-200">{user.correo}</p>
               </div>
 
               <Link
                 to="/perfil"
                 onClick={cerrarMenus}
-                className="block rounded-lg px-3 py-2.5 text-sm text-slate-700 hover:bg-sky-50"
+                className="block rounded-lg px-3 py-2.5 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
               >
                 Mi perfil
               </Link>
               <Link
                 to="/perfil/editar"
                 onClick={cerrarMenus}
-                className="block rounded-lg px-3 py-2.5 text-sm text-slate-700 hover:bg-sky-50"
+                className="block rounded-lg px-3 py-2.5 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
               >
                 Editar perfil
               </Link>
               <button
                 type="button"
                 onClick={cerrarSesion}
-                className="mt-1 w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-red-700 hover:bg-red-50"
+                className="mt-1 w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-rose-300 transition hover:bg-rose-950/60"
               >
                 Cerrar sesión
               </button>
@@ -233,44 +218,44 @@ export default function Navbar() {
               <Link
                 to="/home#caracteristicas"
                 onClick={cerrarMenus}
-                className="block rounded-lg px-3 py-2.5 text-sm text-slate-700 hover:bg-sky-50"
+                className="block rounded-lg px-3 py-2.5 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
               >
                 Características
               </Link>
               <Link
                 to="/home#para-quien"
                 onClick={cerrarMenus}
-                className="block rounded-lg px-3 py-2.5 text-sm text-slate-700 hover:bg-sky-50"
+                className="block rounded-lg px-3 py-2.5 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
               >
                 ¿Para quién es?
               </Link>
               <Link
                 to="/home#beneficios"
                 onClick={cerrarMenus}
-                className="block rounded-lg px-3 py-2.5 text-sm text-slate-700 hover:bg-sky-50"
+                className="block rounded-lg px-3 py-2.5 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
               >
                 Beneficios
               </Link>
               <Link
                 to="/home#privacidad"
                 onClick={cerrarMenus}
-                className="block rounded-lg px-3 py-2.5 text-sm text-slate-700 hover:bg-sky-50"
+                className="block rounded-lg px-3 py-2.5 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
               >
                 Privacidad
               </Link>
 
-              <div className="mt-3 flex flex-col gap-2 border-t border-slate-100 pt-3">
+              <div className="mt-3 flex flex-col gap-2 border-t border-cyan-800 pt-3">
                 <Link
                   to="/login"
                   onClick={cerrarMenus}
-                  className="rounded-xl px-4 py-2.5 text-center text-sm font-medium text-sky-900 hover:bg-sky-50"
+                  className="rounded-xl px-4 py-2.5 text-center text-sm font-medium text-cyan-100 transition hover:bg-cyan-900"
                 >
                   Iniciar sesión
                 </Link>
                 <Link
                   to="/register"
                   onClick={cerrarMenus}
-                  className="rounded-xl bg-sky-900 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-sky-800"
+                  className="rounded-xl border border-cyan-700 bg-cyan-800 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-cyan-700"
                 >
                   Crear cuenta / Registrarse
                 </Link>
