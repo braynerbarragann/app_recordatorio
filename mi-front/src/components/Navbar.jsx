@@ -77,57 +77,76 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-3 md:flex">
           {user ? (
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setMenuUsuarioAbierto((abierto) => !abierto)}
-                aria-label="Abrir menú de usuario"
-                aria-expanded={menuUsuarioAbierto}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-700 bg-cyan-900 text-cyan-100 transition hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-cyan-950"
+            <div className="flex items-center gap-2">
+              <Link
+                to="/chat"
+                onClick={cerrarMenus}
+                aria-label="Abrir asistente de salud"
+                title="Asistente de salud"
+                className="inline-flex h-10 items-center gap-2 rounded-full border border-cyan-700 bg-cyan-900 px-3 text-cyan-100 transition hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-cyan-950"
               >
                 <span
                   className="material-symbols-outlined notranslate text-2xl"
                   translate="no"
                   aria-hidden="true"
                 >
-                  person
+                  smart_toy
                 </span>
-              </button>
+                <span className="text-sm font-medium">Asistente Salud</span>
+              </Link>
 
-              {menuUsuarioAbierto && (
-                <div className="absolute right-0 mt-3 w-72 rounded-xl border border-cyan-700 bg-cyan-950 p-4 text-white shadow-xl shadow-cyan-950/30">
-                  <p className="truncate font-semibold text-white">
-                    {user.nombre}
-                  </p>
-                  <p className="mt-1 truncate text-sm text-cyan-200">
-                    {user.correo}
-                  </p>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setMenuUsuarioAbierto((abierto) => !abierto)}
+                  aria-label="Abrir menú de usuario"
+                  aria-expanded={menuUsuarioAbierto}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-700 bg-cyan-900 text-cyan-100 transition hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-cyan-950"
+                >
+                  <span
+                    className="material-symbols-outlined notranslate text-2xl"
+                    translate="no"
+                    aria-hidden="true"
+                  >
+                    person
+                  </span>
+                </button>
 
-                  <div className="my-3 border-t border-cyan-800" />
+                {menuUsuarioAbierto && (
+                  <div className="absolute right-0 mt-3 w-72 rounded-xl border border-cyan-700 bg-cyan-950 p-4 text-white shadow-xl shadow-cyan-950/30">
+                    <p className="truncate font-semibold text-white">
+                      {user.nombre}
+                    </p>
+                    <p className="mt-1 truncate text-sm text-cyan-200">
+                      {user.correo}
+                    </p>
 
-                  <Link
-                    to="/perfil"
-                    onClick={cerrarMenus}
-                    className="block rounded-lg px-3 py-2 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
-                  >
-                    Mi perfil
-                  </Link>
-                  <Link
-                    to="/perfil/editar"
-                    onClick={cerrarMenus}
-                    className="mt-1 block rounded-lg px-3 py-2 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
-                  >
-                    Editar perfil
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={cerrarSesion}
-                    className="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-rose-300 transition hover:bg-rose-950/60"
-                  >
-                    Cerrar sesión
-                  </button>
-                </div>
-              )}
+                    <div className="my-3 border-t border-cyan-800" />
+
+                    <Link
+                      to="/perfil"
+                      onClick={cerrarMenus}
+                      className="block rounded-lg px-3 py-2 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
+                    >
+                      Mi perfil
+                    </Link>
+                    <Link
+                      to="/perfil/editar"
+                      onClick={cerrarMenus}
+                      className="mt-1 block rounded-lg px-3 py-2 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
+                    >
+                      Editar perfil
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={cerrarSesion}
+                      className="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-rose-300 transition hover:bg-rose-950/60"
+                    >
+                      Cerrar sesión
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
             <>
@@ -190,6 +209,21 @@ export default function Navbar() {
                 <p className="font-semibold text-white">{user.nombre}</p>
                 <p className="truncate text-sm text-cyan-200">{user.correo}</p>
               </div>
+
+              <Link
+                to="/chat"
+                onClick={cerrarMenus}
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-cyan-100 transition hover:bg-cyan-900 hover:text-white"
+              >
+                <span
+                  className="material-symbols-outlined notranslate text-xl"
+                  translate="no"
+                  aria-hidden="true"
+                >
+                  smart_toy
+                </span>
+                Asistente de salud
+              </Link>
 
               <Link
                 to="/perfil"

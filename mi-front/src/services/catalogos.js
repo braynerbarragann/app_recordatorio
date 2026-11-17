@@ -8,3 +8,6 @@ export const obtenerGeneros = () =>
 
 export const obtenerTiposRelacion = () =>
   api.get('/tipos-relacion').then((respuesta) => respuesta.data);
+
+export const obtenerTiposCita = () =>
+  api.get('/tipos-cita').then((respuesta) => respuesta.data);

@@ -151,3 +151,257 @@ texto,intencion
 "¿A qué hora empieza el partido?",fuera_de_alcance
 "Dime un dato curioso sobre los planetas",fuera_de_alcance
 "¿Cómo puedo aprender a tocar guitarra?",fuera_de_alcance
+"Quiero ver citas",consultar_citas
+"Quiero consultar mis citas",consultar_citas
+"Muéstrame las citas que tengo pendientes",consultar_citas
+"¿Qué citas médicas tengo programadas?",consultar_citas
+"¿Tengo alguna cita pronto?",consultar_citas
+"Muéstrame mis próximas consultas",consultar_citas
+"Quiero revisar mi agenda médica",consultar_citas
+"Dime las citas que tengo pendientes",consultar_citas
+"¿Qué consultas tengo agendadas?",consultar_citas
+"¿Cuándo es mi próxima consulta médica?",consultar_citas
+"¿Cómo estará el clima mañana?",fuera_de_alcance
+"¿Quién ganó el partido?",fuera_de_alcance
+"Dame una receta para preparar arroz",fuera_de_alcance
+"¿Qué citas médicas tengo agendadas?",consultar_citas
+"¿Qué citas vienen para estos días?",consultar_citas
+"¿Cuáles son las próximas citas de mi paciente?",consultar_citas
+"¿Me confirmas cuándo es la próxima cita?",consultar_citas
+"¿Cuándo me toca volver al médico?",consultar_citas
+"¿A qué hora quedó la consulta?",consultar_citas
+"¿Qué día es el control de mi mamá?",consultar_citas
+"¿Me regalas la fecha de la cita de Samuel?",consultar_citas
+"Muéstrame las citas que vienen esta semana",consultar_citas
+"Quiero revisar las citas que ya quedaron",consultar_citas
+"¿Tengo alguna cita para mañana?",consultar_citas
+"¿Qué consultas hay para la otra semana?",consultar_citas
+"¿Cuándo quedó la cita del viernes?",consultar_citas
+"Dime qué citas tiene mi familiar este mes",consultar_citas
+"¿A qué hora es la cita que agendamos?",consultar_citas
+"Ve, ¿cuándo es el próximo control?",consultar_citas
+"Porfa, muéstrame las citas pendientes",consultar_citas
+"Me puedes confirmar la fecha de la próxima consulta",consultar_citas
+"¿Qué citas aparecen en la agenda de mi paciente?",consultar_citas
+"Quiero saber cuándo tiene cita mi papá",consultar_citas
+"¿Cuándo está la revisión de mi mamá?",consultar_citas
+"¿Hay consulta médica para estos días?",consultar_citas
+"¿Qué controles hay programados para Samuel?",consultar_citas
+"¿Me muestras el calendario de citas?",consultar_citas
+"Necesito mirar la fecha de la consulta",consultar_citas
+"¿Para cuándo quedó la cita médica?",consultar_citas
+"¿Cuál es la próxima cita que tiene mi familiar?",consultar_citas
+"¿Qué citas están confirmadas?",consultar_citas
+"¿Tengo controles médicos agendados este mes?",consultar_citas
+"Muéstrame las citas del paciente, porfa",consultar_citas
+"¿Cuándo tiene que ir al médico mi mamá?",consultar_citas
+"¿A qué hora es el control que está pendiente?",consultar_citas
+"¿Qué citas hay anotadas para la próxima semana?",consultar_citas
+"Confírmame qué día es la consulta",consultar_citas
+"¿Cuándo es la cita más cercana?",consultar_citas
+"Revisa si mi paciente tiene cita pronto",consultar_citas
+"¿Qué consultas están registradas para mañana?",consultar_citas
+"Quiero ver la fecha de la cita de mi papá",consultar_citas
+"¿A qué hora es la próxima revisión médica?",consultar_citas
+"¿Me dices cuándo quedó la consulta de Samuel?",consultar_citas
+"¿Qué citas tiene mi familiar para noviembre?",consultar_citas
+"¿Hay alguna cita médica confirmada?",consultar_citas
+"Pásame las fechas de las consultas que vienen",consultar_citas
+"Quiero consultar el horario de la próxima cita",consultar_citas
+"¿Cuándo es el próximo control del paciente?",consultar_citas
+"¿Me ayudas a revisar las citas de esta semana?",consultar_citas
+"¿Qué cita sigue en el calendario?",consultar_citas
+"¿Cuándo quedó programada la cita de control?",consultar_citas
+"¿Quiénes son las personas que tengo vinculadas?",consultar_pacientes
+"Muéstrame la lista de familiares a mi cargo",consultar_pacientes
+"¿Qué pacientes aparecen en mi perfil?",consultar_pacientes
+"¿A quiénes tengo registrados como pacientes?",consultar_pacientes
+"Quiero ver los familiares que acompaño",consultar_pacientes
+"¿Me muestras las personas asociadas a mi cuenta?",consultar_pacientes
+"¿Quiénes están vinculados conmigo?",consultar_pacientes
+"Dime qué pacientes tengo bajo mi cuidado",consultar_pacientes
+"¿Qué familiares tengo registrados?",consultar_pacientes
+"Necesito revisar mi lista de pacientes",consultar_pacientes
+"¿Cuáles son los pacientes que puedo consultar?",consultar_pacientes
+"Muéstrame quiénes dependen de mí en la aplicación",consultar_pacientes
+"¿Qué personas tengo a cargo en mi cuenta?",consultar_pacientes
+"¿Me regalas la lista de pacientes vinculados?",consultar_pacientes
+"Porfa, enséñame mis pacientes",consultar_pacientes
+"Quiero saber qué familiares están asociados a mi usuario",consultar_pacientes
+"¿Quién aparece como paciente en mi cuenta?",consultar_pacientes
+"Revisa las personas vinculadas a mi perfil, porfa",consultar_pacientes
+"¿Qué familiares tengo bajo mi responsabilidad?",consultar_pacientes
+"Muéstrame los pacientes que están asociados conmigo",consultar_pacientes
+"¿A qué personas les llevo el seguimiento?",consultar_pacientes
+"Quiero consultar los perfiles de mis familiares",consultar_pacientes
+"¿Quiénes figuran como pacientes a mi cargo?",consultar_pacientes
+"Me puedes mostrar los pacientes de mi cuenta",consultar_pacientes
+"¿Qué personas están registradas conmigo?",consultar_pacientes
+"Dime quiénes están en mi lista de pacientes",consultar_pacientes
+"¿Cuáles familiares tengo agregados?",consultar_pacientes
+"¿Me muestras a quiénes tengo vinculados como pacientes?",consultar_pacientes
+"Quiero revisar los perfiles de pacientes asociados",consultar_pacientes
+"¿Qué pacientes están bajo mi cuidado?",consultar_pacientes
+"Ve, ¿quiénes aparecen vinculados a mi cuenta?",consultar_pacientes
+"¿Quiénes son mis familiares registrados en el sistema?",consultar_pacientes
+"Muéstrame las personas que tengo asociadas, porfa",consultar_pacientes
+"¿Qué pacientes puedo administrar desde mi usuario?",consultar_pacientes
+"Quiero ver las personas que tengo a mi cuidado",consultar_pacientes
+"¿A quiénes tengo enlazados en mi perfil?",consultar_pacientes
+"¿Me confirmas qué familiares están registrados conmigo?",consultar_pacientes
+"Lista los pacientes que tengo vinculados",consultar_pacientes
+"¿Quiénes están en mi grupo familiar?",consultar_pacientes
+"¿Qué personas tengo asociadas en la aplicación?",consultar_pacientes
+"Muéstrame los perfiles que están a mi cargo",consultar_pacientes
+"Necesito saber quiénes están vinculados a mi usuario",consultar_pacientes
+"¿Cuáles son los familiares que tengo registrados acá?",consultar_pacientes
+"¿Qué pacientes me aparecen en el sistema?",consultar_pacientes
+"¿Me enseñas quiénes están a mi cuidado?",consultar_pacientes
+"Quiero revisar mis pacientes vinculados al perfil",consultar_pacientes
+"¿Quiénes están asociados a mi cuenta de cuidador?",consultar_pacientes
+"Dime las personas que tengo registradas como pacientes",consultar_pacientes
+"¿Qué familiares puedo consultar desde mi cuenta?",consultar_pacientes
+"Muéstrame mi grupo de pacientes",consultar_pacientes
+"¿A quiénes tengo agregados como familiares?",consultar_pacientes
+"¿Me ayudas a ver quiénes están a mi cargo?",consultar_pacientes
+"¿Qué perfiles de pacientes tengo disponibles?",consultar_pacientes
+"¿Quiénes aparecen relacionados con mi usuario?",consultar_pacientes
+"Porfa, revisa la gente que tengo vinculada",consultar_pacientes
+"¿Qué personas tengo bajo mi cuidado en la app?",consultar_pacientes
+"Quiero mirar quiénes están asociados conmigo",consultar_pacientes
+"¿Me muestras los pacientes que tengo registrados?",consultar_pacientes
+"¿Cuáles personas están vinculadas a mi perfil de cuidador?",consultar_pacientes
+"Dime qué familiares tengo en la aplicación",consultar_pacientes
+"¿Quiénes son los pacientes relacionados con mi cuenta?",consultar_pacientes
+"Necesito ver a las personas que tengo a cargo",consultar_pacientes
+"¿Qué pacientes tengo asociados al perfil?",consultar_pacientes
+"Muéstrame los familiares que aparecen en mi cuenta",consultar_pacientes
+"¿Cómo va a estar el clima mañana en Medellín?",fuera_de_alcance
+"¿Me dices si va a llover en Bogotá hoy?",fuera_de_alcance
+"¿Qué tiempo va a hacer este fin de semana?",fuera_de_alcance
+"¿Va a hacer mucho frío por la noche?",fuera_de_alcance
+"¿Cómo está el clima por allá, parce?",fuera_de_alcance
+"¿Qué película buena hay para ver hoy?",fuera_de_alcance
+"Recomiéndame una serie bacana para el fin de semana",fuera_de_alcance
+"¿Qué hay bueno en cartelera?",fuera_de_alcance
+"Cuéntame un chistecito, porfa",fuera_de_alcance
+"Suéltame un dato curioso",fuera_de_alcance
+"¿Quién ganó el partido de anoche?",fuera_de_alcance
+"¿A qué horas juega Colombia?",fuera_de_alcance
+"¿Cómo quedó el partido de Nacional?",fuera_de_alcance
+"¿Me recomiendas una canción chévere?",fuera_de_alcance
+"Ponme una canción para estudiar",fuera_de_alcance
+"¿Qué música está sonando mucho?",fuera_de_alcance
+"¿Cómo preparo un ajiaco?",fuera_de_alcance
+"Pásame una receta fácil para el almuerzo",fuera_de_alcance
+"¿Qué puedo cocinar con papa y huevo?",fuera_de_alcance
+"¿Cómo hago un arroz bien rico?",fuera_de_alcance
+"¿Qué restaurante bueno hay por el centro?",fuera_de_alcance
+"¿Dónde puedo comer algo rico en Bogotá?",fuera_de_alcance
+"¿Qué planes hay para hacer en Cali?",fuera_de_alcance
+"Recomiéndame un paseo cerca de Medellín",fuera_de_alcance
+"¿Qué lugares bacanos puedo visitar en Cartagena?",fuera_de_alcance
+"¿Cuánto es 37 por 8?",fuera_de_alcance
+"Ayúdame con esta tarea de álgebra",fuera_de_alcance
+"¿Cuánto da dividir 144 entre 12?",fuera_de_alcance
+"Explícame la fotosíntesis, porfa",fuera_de_alcance
+"¿Cuál es la capital de Canadá?",fuera_de_alcance
+"¿Cuántos departamentos tiene Colombia?",fuera_de_alcance
+"¿Quién escribió Cien años de soledad?",fuera_de_alcance
+"Cuéntame algo de la historia de Bogotá",fuera_de_alcance
+"¿Me traduces esto al inglés?",fuera_de_alcance
+"¿Cómo se dice “buenos días” en francés?",fuera_de_alcance
+"Ayúdame a redactar una hoja de vida",fuera_de_alcance
+"¿Me corriges este correo para el trabajo?",fuera_de_alcance
+"¿Cómo hago una tabla dinámica en Excel?",fuera_de_alcance
+"¿Qué celular me recomiendas comprar?",fuera_de_alcance
+"¿Cuál es el precio del dólar hoy?",fuera_de_alcance
+"¿Qué noticias importantes hay esta mañana?",fuera_de_alcance
+"¿Quién ganó las elecciones?",fuera_de_alcance
+"¿Cómo llego al aeropuerto en bus?",fuera_de_alcance
+"¿Qué ruta de TransMilenio me sirve?",fuera_de_alcance
+"¿A qué hora pasa el próximo bus?",fuera_de_alcance
+"¿Me ayudas a organizar un paseo?",fuera_de_alcance
+"¿Qué regalo le puedo dar a mi mamá?",fuera_de_alcance
+"Recomiéndame un libro para leer",fuera_de_alcance
+"¿Cómo aprendo a tocar guitarra?",fuera_de_alcance
+"¿Qué ejercicios hago para estar en forma?",fuera_de_alcance
+"¿Me inventas una historia cortica?",fuera_de_alcance
+"¿Qué significa esta palabra?",fuera_de_alcance
+"¿Cómo cambio la clave del wifi?",fuera_de_alcance
+"El computador se me puso lento, ¿qué hago?",fuera_de_alcance
+"¿Me ayudas a hacer una presentación para clase?",fuera_de_alcance
+"¿Qué series están de moda?",fuera_de_alcance
+"¿A qué hora empieza la película?",fuera_de_alcance
+"¿Cuándo juega Millonarios?",fuera_de_alcance
+"¿Cuál es el mejor equipo de fútbol?",fuera_de_alcance
+"Quiero programar una cita",programar_cita
+"Necesito sacar una cita con el médico",programar_cita
+"Ayúdame a agendar una consulta para mi familiar",programar_cita
+"¿Me puedes reservar un espacio para el control?",programar_cita
+"Separa una cita para mi mamá el jueves",programar_cita
+"Quiero dejar una consulta anotada para mañana",programar_cita
+"Porfa, agenda una cita médica para Samuel",programar_cita
+"Me regalas un espacio para una revisión la próxima semana",programar_cita
+"Necesito pedir una cita para mi papá",programar_cita
+"¿Puedes agendarle un control a mi mamá?",programar_cita
+"Quiero reservar una consulta para el viernes en la tarde",programar_cita
+"Anota una cita médica para mi paciente",programar_cita
+"Agéndame una revisión para el martes",programar_cita
+"Necesito programar el control de mi familiar",programar_cita
+"¿Me ayudas a sacar una cita para Samuel?",programar_cita
+"Quiero pedir un turno con el especialista",programar_cita
+"Reserva un espacio para una consulta general",programar_cita
+"Pon una cita para mi mamá la otra semana",programar_cita
+"Deja agendada una revisión médica para mi papá",programar_cita
+"Quisiera separar una hora para el médico",programar_cita
+"¿Me colaboras agendando una cita?",programar_cita
+"Agenda una consulta para el paciente el lunes",programar_cita
+"Necesito que registres una cita de control",programar_cita
+"¿Puedes anotar una consulta para el jueves?",programar_cita
+"Quiero sacar una cita para mi familiar, porfa",programar_cita
+"Separa un cupito para llevar a mi mamá al médico",programar_cita
+"¿Me reservas una cita para el próximo miércoles?",programar_cita
+"Programa una consulta para Samuel en la mañana",programar_cita
+"Agéndale una revisión a mi papá para el viernes",programar_cita
+"Quiero cuadrar una cita médica para la próxima semana",programar_cita
+"Necesito un espacio para el control de mi paciente",programar_cita
+"¿Me ayudas a pedir una consulta para mi mamá?",programar_cita
+"Pon en la agenda una cita para mi familiar",programar_cita
+"Registra un control médico para el martes",programar_cita
+"Porfa, programa una cita para mi papá",programar_cita
+"Quiero coordinar una consulta con el médico",programar_cita
+"Sácame una cita para mi paciente el lunes",programar_cita
+"¿Hay forma de agendar una revisión para mañana?",programar_cita
+"Anota una cita para mi mamá en la tarde",programar_cita
+"Reserva una consulta para mi familiar el jueves",programar_cita
+"Necesito pedir un control para Samuel",programar_cita
+"¿Me separas una cita con medicina general?",programar_cita
+"Quiero dejar reservado un turno para mi papá",programar_cita
+"Agenda el próximo control de mi paciente",programar_cita
+"Programa una cita para llevar a mi mamá al especialista",programar_cita
+"De una, ayúdame a agendar una consulta",programar_cita
+"Quiero que me pongas una cita para el miércoles",programar_cita
+"¿Me regalas una cita para mi familiar la otra semana?",programar_cita
+"Necesito agendar al paciente para una consulta",programar_cita
+"Reserva un turno médico para el viernes",programar_cita
+"Agéndale una cita a mi familiar para la mañana",programar_cita
+"Quiero programar una revisión para mi mamá",programar_cita
+"Crea una cita médica para mi papá",programar_cita
+"¿Puedes dejar programada la consulta del paciente?",programar_cita
+"Me ayudas a cuadrar una cita para el lunes",programar_cita
+"Quiero separar un espacio para llevar a Samuel al médico",programar_cita
+"Agenda una cita de control para mi mamá, por favor",programar_cita
+"Necesito reservar una consulta para el paciente esta semana",programar_cita
+"Ponle una cita médica a mi familiar para el martes",programar_cita
+"¿Me colaboras con una cita para el especialista?",programar_cita
+"Quisiera agendarle el control a mi papá",programar_cita
+"Programa una cita para mi paciente el próximo viernes",programar_cita
+"Quiero pedir una cita médica para mi mamá esta semana",programar_cita
+"Saca un espacio en la agenda para la revisión de Samuel",programar_cita
+"¿Cuándo le toca el control a mi mamá?",consultar_citas
+"¿Qué día tiene la revisión médica mi papá?",consultar_citas
+"Confírmame cuándo es la cita de Samuel",consultar_citas
+"Agenda un control para mi mamá el jueves",programar_cita
+"Separa una cita para mi papá el jueves",programar_cita
+"Programa una revisión médica para Samuel",programar_cita
