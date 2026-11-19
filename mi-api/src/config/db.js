@@ -22,6 +22,66 @@ const pool = mysql.createPool({
   },
 });
 
+
+const appInsights = require('applicationinsights');
+
+const queryOriginal = pool.query.bind(pool);
+
+const registrarDependenciaMySQL = (duracion, exito, codigoResultado) => {
+  const cliente = appInsights.defaultClient;
+
+  // La telemetría no debe impedir que la consulta normal funcione.
+  if (!cliente) return;
+
+  cliente.trackDependency({
+    target: process.env.DB_HOST || 'MySQL',
+    name: 'MySQL query',
+    data: 'mysql2/promise pool.query',
+    duration: duracion,
+    resultCode: codigoResultado,
+    success: exito,
+    dependencyTypeName: 'SQL'
+  });
+};
+
+pool.query = (...argumentos) => {
+  const inicio = Date.now();
+  let consulta;
+
+  try {
+    consulta = queryOriginal(...argumentos);
+  } catch (error) {
+    registrarDependenciaMySQL(
+      Date.now() - inicio,
+      false,
+      error.code || 'ERROR'
+    );
+    throw error;
+  }
+
+  // Las llamadas de los modelos usan la versión Promise de mysql2.
+  // Si algún código usa callback, se devuelve sin envolver.
+  if (!consulta || typeof consulta.then !== 'function') {
+    return consulta;
+  }
+
+  return consulta.then(
+    (resultado) => {
+      registrarDependenciaMySQL(Date.now() - inicio, true, 0);
+      return resultado;
+    },
+    (error) => {
+      registrarDependenciaMySQL(
+        Date.now() - inicio,
+        false,
+        error.code || 'ERROR'
+      );
+      throw error;
+    }
+  );
+};
+
+
 // Verificar conexión al iniciar
 pool.getConnection()
   .then(conn => {
